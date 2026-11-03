@@ -1,33 +1,43 @@
 // =============================================================================
-// MAIN APP - TIENDA ONLINE ESTILO SHOPIFY
+// MAIN APP - TIENDA ONLINE ESTILO SHOPIFY CON FILTROS DINÁMICOS
 // =============================================================================
 import { CONFIG } from './config.js';
 import { getCandleProducts } from './js/catalog.js';
 import { Lightbox } from './js/lightbox.js';
 
+// Estado global de filtros
+const state = {
+  allProducts: [],
+  selectedBox: 'all',
+  selectedCandles: 'all',
+  searchQuery: '',
+};
+
 document.addEventListener('DOMContentLoaded', () => {
-  // 1. Cargar dinámicamente imágenes desde src/velas/
-  const allProducts = getCandleProducts();
-  let currentProducts = [...allProducts];
+  // 1. Cargar productos clasificados desde src/velas/
+  state.allProducts = getCandleProducts();
 
-  // 2. Inicializar Modal de Vista Rápida / Zoom
-  const lightbox = new Lightbox(allProducts);
+  // 2. Inicializar Lightbox de zoom puro
+  const lightbox = new Lightbox(state.allProducts);
 
-  // 3. Aplicar configuración al DOM
+  // 3. Aplicar textos de configuración
   applyConfig();
 
-  // 4. Renderizar tarjetas de producto estilo Shopify
-  renderStoreProducts(currentProducts, lightbox);
+  // 4. Generar botones de filtro dinámicamente
+  setupFilters(state.allProducts, lightbox);
 
-  // 5. Configurar buscador en vivo
-  setupSearch(allProducts, lightbox);
+  // 5. Configurar buscador
+  setupSearch(lightbox);
 
-  // 6. Verificar hash en la URL
-  checkUrlHash(allProducts, lightbox);
+  // 6. Renderizar catálogo inicial
+  updateCatalogView(lightbox);
+
+  // 7. Hash en URL
+  checkUrlHash(state.allProducts, lightbox);
 });
 
 /**
- * Vincula los textos y enlaces de CONFIG a los elementos de la interfaz
+ * Textos y cabeceras
  */
 function applyConfig() {
   const announcementBar = document.getElementById('announcement-bar');
@@ -36,25 +46,108 @@ function applyConfig() {
   const collectionTitle = document.getElementById('collection-title');
   const collectionDesc = document.getElementById('collection-description');
 
-  if (announcementBar && CONFIG.topBannerText) {
-    announcementBar.textContent = CONFIG.topBannerText;
-  }
-  if (brandName && CONFIG.brandName) {
-    brandName.textContent = CONFIG.brandName;
-  }
-  if (footerBrand && CONFIG.brandName) {
-    footerBrand.textContent = CONFIG.brandName;
-  }
-  if (collectionTitle && CONFIG.catalogTitle) {
-    collectionTitle.textContent = CONFIG.catalogTitle;
-  }
-  if (collectionDesc && CONFIG.catalogSubtitle) {
-    collectionDesc.textContent = CONFIG.catalogSubtitle;
-  }
+  if (announcementBar && CONFIG.topBannerText) announcementBar.textContent = CONFIG.topBannerText;
+  if (brandName && CONFIG.brandName) brandName.textContent = CONFIG.brandName;
+  if (footerBrand && CONFIG.brandName) footerBrand.textContent = CONFIG.brandName;
+  if (collectionTitle && CONFIG.catalogTitle) collectionTitle.textContent = CONFIG.catalogTitle;
+  if (collectionDesc && CONFIG.catalogSubtitle) collectionDesc.textContent = CONFIG.catalogSubtitle;
 }
 
 /**
- * Renderiza los productos en grilla con diseño de tarjeta de tienda online (Shopify)
+ * Configura y renderiza las pastillas de filtros por Caja y por Velas
+ */
+function setupFilters(products, lightbox) {
+  const boxContainer = document.getElementById('filter-box-pills');
+  const candleContainer = document.getElementById('filter-candle-pills');
+
+  // Obtener colores únicos existentes en los productos
+  const boxColors = Array.from(new Set(products.map(p => p.colorCaja))).filter(Boolean);
+  const candleColors = Array.from(new Set(products.map(p => p.colorVelas))).filter(Boolean);
+
+  // Generar botones de Color de Caja
+  if (boxContainer) {
+    boxContainer.innerHTML = `
+      <button class="filter-pill active" data-type="caja" data-value="all">Todas</button>
+      ${boxColors.map(color => `
+        <button class="filter-pill" data-type="caja" data-value="${color}">
+          ${getBoxIcon(color)} ${color}
+        </button>
+      `).join('')}
+    `;
+
+    boxContainer.addEventListener('click', (e) => {
+      const btn = e.target.closest('.filter-pill');
+      if (!btn) return;
+      boxContainer.querySelectorAll('.filter-pill').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      state.selectedBox = btn.dataset.value;
+      updateCatalogView(lightbox);
+    });
+  }
+
+  // Generar botones de Color de Velas
+  if (candleContainer) {
+    candleContainer.innerHTML = `
+      <button class="filter-pill active" data-type="velas" data-value="all">Todas</button>
+      ${candleColors.map(color => `
+        <button class="filter-pill" data-type="velas" data-value="${color}">
+          ${getCandleIcon(color)} ${color}
+        </button>
+      `).join('')}
+    `;
+
+    candleContainer.addEventListener('click', (e) => {
+      const btn = e.target.closest('.filter-pill');
+      if (!btn) return;
+      candleContainer.querySelectorAll('.filter-pill').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      state.selectedCandles = btn.dataset.value;
+      updateCatalogView(lightbox);
+    });
+  }
+}
+
+function getBoxIcon(color) {
+  const lower = color.toLowerCase();
+  if (lower.includes('negra')) return '⬛';
+  if (lower.includes('dorada')) return '🟨';
+  if (lower.includes('blanca')) return '⬜';
+  return '📦';
+}
+
+function getCandleIcon(color) {
+  const lower = color.toLowerCase();
+  if (lower.includes('blanca')) return '⚪';
+  if (lower.includes('neon') || lower.includes('neón')) return '⚡';
+  if (lower.includes('pastel')) return '🎨';
+  return '🕯️';
+}
+
+/**
+ * Filtra los productos según el estado actual y actualiza la vista
+ */
+function updateCatalogView(lightbox) {
+  const filtered = state.allProducts.filter(item => {
+    // Filtro caja
+    const matchBox = state.selectedBox === 'all' || item.colorCaja === state.selectedBox;
+    
+    // Filtro velas
+    const matchCandles = state.selectedCandles === 'all' || item.colorVelas === state.selectedCandles;
+
+    // Buscador
+    const matchSearch = !state.searchQuery || 
+      item.title.toLowerCase().includes(state.searchQuery) ||
+      item.colorCaja.toLowerCase().includes(state.searchQuery) ||
+      item.colorVelas.toLowerCase().includes(state.searchQuery);
+
+    return matchBox && matchCandles && matchSearch;
+  });
+
+  renderStoreProducts(filtered, lightbox);
+}
+
+/**
+ * Renderiza los productos en grilla
  */
 function renderStoreProducts(products, lightbox) {
   const grid = document.getElementById('product-grid');
@@ -69,19 +162,25 @@ function renderStoreProducts(products, lightbox) {
     grid.innerHTML = `
       <div style="grid-column: 1 / -1; text-align: center; padding: 4rem 1rem; background: #ffffff; border-radius: 12px; border: 1px dashed #d1d5db;">
         <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">🕯️</div>
-        <h3 style="font-size: 1.25rem; font-weight: 700; color: #111827; margin-bottom: 0.25rem;">No se encontraron diseños</h3>
-        <p style="color: #6b7280; font-size: 0.95rem;">Intenta con otro término de búsqueda para ver los productos disponibles.</p>
+        <h3 style="font-size: 1.25rem; font-weight: 700; color: #111827; margin-bottom: 0.25rem;">No hay diseños con estos filtros</h3>
+        <p style="color: #6b7280; font-size: 0.95rem;">Prueba seleccionando "Todas" o cambiando la combinación de colores.</p>
       </div>
     `;
     return;
   }
 
-
   grid.innerHTML = products.map((item) => {
+    const isAvailable = item.disponible !== false;
+    const badgeText = isAvailable ? item.colorVelas : 'Agotado';
+    const badgeClass = isAvailable ? 'product-tag-badge' : 'product-tag-badge badge-soldout';
+    const statusText = isAvailable 
+      ? `<span class="status-dot"></span> Disponible` 
+      : `<span class="status-dot soldout"></span> Agotado temporalmente`;
+
     return `
-      <article class="product-card" data-id="${item.id}" data-index="${item.index}">
-        <div class="product-image-box" data-action="quick-view" title="Clic para ver detalle y hacer zoom">
-          <span class="product-tag-badge">Edición 7 de Dic</span>
+      <article class="product-card ${!isAvailable ? 'card-soldout' : ''}" data-id="${item.id}" data-index="${item.index}">
+        <div class="product-image-box" data-action="quick-view" title="Clic para ampliar con zoom">
+          <span class="${badgeClass}">${badgeText}</span>
           
           <img 
             class="product-img" 
@@ -102,7 +201,19 @@ function renderStoreProducts(products, lightbox) {
         </div>
 
         <div class="product-info">
-          <h2 class="product-title">${item.title}</h2>
+          <div>
+            <div class="product-meta-row">
+              <span class="meta-tag">${item.colorCaja}</span>
+              <span class="meta-separator">•</span>
+              <span class="meta-tag">${item.colorVelas}</span>
+            </div>
+            
+            <h2 class="product-title">${item.title}</h2>
+
+            <div class="product-status-tag ${!isAvailable ? 'status-soldout' : ''}">
+              ${statusText}
+            </div>
+          </div>
 
           <div class="product-actions">
             <button 
@@ -135,29 +246,20 @@ function renderStoreProducts(products, lightbox) {
 }
 
 /**
- * Buscador en tiempo real
+ * Buscador
  */
-function setupSearch(allProducts, lightbox) {
+function setupSearch(lightbox) {
   const searchInput = document.getElementById('search-input');
   if (!searchInput) return;
 
   searchInput.addEventListener('input', (e) => {
-    const query = e.target.value.toLowerCase().trim();
-    if (!query) {
-      renderStoreProducts(allProducts, lightbox);
-      return;
-    }
-
-    const filtered = allProducts.filter((item) => {
-      return item.title.toLowerCase().includes(query) || item.filename.toLowerCase().includes(query);
-    });
-
-    renderStoreProducts(filtered, lightbox);
+    state.searchQuery = e.target.value.toLowerCase().trim();
+    updateCatalogView(lightbox);
   });
 }
 
 /**
- * Soporte para URLs con hash (ej. #vela-1)
+ * URL Hash
  */
 function checkUrlHash(allProducts, lightbox) {
   const hash = window.location.hash.replace('#', '');

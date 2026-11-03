@@ -1,34 +1,28 @@
 // =============================================================================
-// CARGA DINÁMICA DE IMÁGENES (SIN QUEMAR NOMBRES)
+// CARGA DINÁMICA Y CLASIFICACIÓN DE PRODUCTOS
 // =============================================================================
-// Vite escanea automáticamente todo archivo en src/velas/ en tiempo de ejecución/build.
-// Solo coloca tus fotos en esa carpeta y aparecerán aquí automáticamente.
+import { CONFIG } from '../config.js';
 
-// Importación glob de Vite:
 const imageModules = import.meta.glob('../velas/*.{png,jpg,jpeg,webp,avif,gif,PNG,JPG,JPEG,WEBP,AVIF,GIF}', {
   eager: true,
   import: 'default'
 });
 
 /**
- * Convierte un nombre de archivo (ej. "caja-noche-de-velitas.jpg" o "vela_01_virgen.png")
- * en un título estético y legible (ej. "Caja Noche De Velitas").
+ * Convierte un nombre de archivo en un título legible
  */
 function formatTitle(filename) {
-  // Quitar extensión
   const nameWithoutExt = filename.replace(/\.[^/.]+$/, '');
-  
-  // Reemplazar guiones y guiones bajos por espacios
-  const cleanName = nameWithoutExt.replace(/[-_]+/g, ' ').trim();
-  
-  // Si está vacío o es solo números, poner algo amigable
+  // Quitar prefijos de caja y velas si existen (ej. caja-dorada_velas-blancas_...)
+  const parts = nameWithoutExt.split('_');
+  const rawTitle = parts.length > 2 ? parts.slice(2).join(' ') : parts.join(' ');
+  const cleanName = rawTitle.replace(/[-_]+/g, ' ').trim();
+
   if (!cleanName || /^\d+$/.test(cleanName)) {
     return `Diseño #${cleanName || 'Especial'}`;
   }
 
-  // Capitalizar cada palabra (respetando conectores como 'de', 'en', 'la', 'el')
   const lowercaseWords = new Set(['de', 'del', 'la', 'las', 'el', 'los', 'en', 'con', 'y', 'o']);
-  
   return cleanName
     .split(/\s+/)
     .map((word, index) => {
@@ -42,27 +36,64 @@ function formatTitle(filename) {
 }
 
 /**
- * Retorna la lista organizada de productos/diseños encontrados en la carpeta
+ * Detecta automáticamente atributos a partir del nombre del archivo si no está en inventario
+ */
+function autoDetectAttributes(filename) {
+  const lower = filename.toLowerCase();
+
+  // Color de caja
+  let colorCaja = 'Caja Dorada';
+  if (lower.includes('negra')) {
+    colorCaja = 'Caja Negra';
+  } else if (lower.includes('blanca')) {
+    colorCaja = 'Caja Blanca';
+  }
+
+  // Color de velas: "Velas Blancas", "Velas Neón", "Velas Pastel"
+  let colorVelas = 'Velas Blancas';
+  if (lower.includes('neon') || lower.includes('neón')) {
+    colorVelas = 'Velas Neón';
+  } else if (lower.includes('pastel')) {
+    colorVelas = 'Velas Pastel';
+  } else if (lower.includes('blanca')) {
+    colorVelas = 'Velas Blancas';
+  }
+
+  return { colorCaja, colorVelas };
+}
+
+/**
+ * Retorna todos los productos clasificados con su estado de disponibilidad
  */
 export function getCandleProducts() {
   const entries = Object.entries(imageModules);
-  
-  // Mapear cada entrada
+  const inventario = CONFIG.inventario || {};
+
   const products = entries.map(([filepath, url], index) => {
-    // Extraer solo el nombre del archivo (ej. "caja-dorada.jpg")
     const filename = filepath.split('/').pop() || `diseno-${index + 1}.jpg`;
-    const title = formatTitle(filename);
+    
+    // Si está en el inventario de config.js, tomar esos datos
+    const customData = inventario[filename];
+
+    const detected = autoDetectAttributes(filename);
+    const title = customData?.titulo || formatTitle(filename);
+    const colorCaja = customData?.colorCaja || detected.colorCaja;
+    const colorVelas = customData?.colorVelas || detected.colorVelas;
+    const disponible = customData?.disponible !== undefined ? customData.disponible : true;
 
     return {
       id: `vela-${index + 1}`,
       index,
       filename,
       title,
+      colorCaja,
+      colorVelas,
+      disponible,
       url,
     };
   });
 
-  // Ordenar alfabéticamente por título de forma natural
+  // Ordenar alfabéticamente por título
   products.sort((a, b) => a.title.localeCompare(b.title, 'es', { numeric: true }));
 
   return products;

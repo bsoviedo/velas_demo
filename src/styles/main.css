@@ -611,17 +611,23 @@ body {
 }
 
 .shopify-modal-card {
+  display: none;
+}
+
+.modal-zoom-container {
   position: relative;
   z-index: 2;
   background: #ffffff;
   width: 100%;
-  max-width: 1050px;
-  max-height: 90vh;
+  max-width: 920px;
+  height: 88vh;
+  max-height: 850px;
   border-radius: var(--radius-lg);
   overflow: hidden;
   display: flex;
+  flex-direction: column;
   box-shadow: var(--shadow-modal);
-  animation: modalPop 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  animation: modalPop 0.28s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 @keyframes modalPop {
@@ -629,58 +635,88 @@ body {
   to { transform: scale(1) translateY(0); opacity: 1; }
 }
 
-@media (max-width: 900px) {
-  .shopify-modal-card {
-    flex-direction: column;
-    max-height: 92vh;
-    overflow-y: auto;
+@media (max-width: 640px) {
+  .modal-zoom-container {
+    height: 94vh;
+    border-radius: var(--radius-md);
   }
 }
 
-/* Botón cerrar modal */
-.modal-close-btn {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-  z-index: 10;
-  width: 40px;
-  height: 40px;
-  border-radius: var(--radius-full);
+/* Header del modal */
+.modal-zoom-header {
+  padding: 0.9rem 1.25rem;
   background: #ffffff;
+  border-bottom: 1px solid var(--border-light);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  z-index: 10;
+}
+
+.modal-zoom-title-box {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  min-width: 0;
+}
+
+.modal-zoom-title {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--text-main);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.modal-zoom-counter {
+  background: var(--bg-subtle);
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: 0.2rem 0.6rem;
+  border-radius: var(--radius-full);
+  flex-shrink: 0;
+}
+
+.modal-zoom-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-shrink: 0;
+}
+
+.modal-btn-icon {
+  width: 38px;
+  height: 38px;
+  border-radius: var(--radius-full);
+  background: var(--bg-subtle);
   border: 1px solid var(--border-light);
   color: var(--text-main);
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  box-shadow: var(--shadow-sm);
   transition: var(--transition);
 }
 
-.modal-close-btn:hover {
-  background: var(--bg-subtle);
-  transform: rotate(90deg);
+.modal-btn-icon:hover {
+  background: #e5e7eb;
+  transform: scale(1.05);
 }
 
-/* Lado izquierdo: Visor de Imagen con Zoom */
-.modal-viewport-side {
-  flex: 1.25;
+/* Viewport central */
+.modal-zoom-viewport {
+  flex: 1;
   background: #f4f4f5;
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 480px;
   overflow: hidden;
   user-select: none;
   touch-action: none;
-}
-
-@media (max-width: 900px) {
-  .modal-viewport-side {
-    min-height: 380px;
-    max-height: 45vh;
-  }
 }
 
 .modal-image-wrapper {
@@ -694,12 +730,12 @@ body {
 }
 
 .modal-img {
-  max-width: 90%;
-  max-height: 80vh;
+  max-width: 92%;
+  max-height: 72vh;
   object-fit: contain;
   border-radius: var(--radius-sm);
   pointer-events: none;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
 }
 
 /* Flechas de navegación */
@@ -710,7 +746,7 @@ body {
   width: 44px;
   height: 44px;
   border-radius: var(--radius-full);
-  background: rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.95);
   border: 1px solid var(--border-light);
   color: var(--text-main);
   display: flex;
@@ -727,23 +763,28 @@ body {
   transform: translateY(-50%) scale(1.08);
 }
 
-.modal-nav-prev { left: 0.85rem; }
-.modal-nav-next { right: 0.85rem; }
+.modal-nav-prev { left: 1rem; }
+.modal-nav-next { right: 1rem; }
 
-/* Controles de Zoom en la imagen */
+@media (max-width: 640px) {
+  .modal-nav-prev { left: 0.5rem; }
+  .modal-nav-next { right: 0.5rem; }
+}
+
+/* Barra flotante de zoom */
 .modal-zoom-bar {
   position: absolute;
-  bottom: 1rem;
+  bottom: 1.25rem;
   left: 50%;
   transform: translateX(-50%);
   background: rgba(255, 255, 255, 0.95);
   border: 1px solid var(--border-light);
   border-radius: var(--radius-full);
-  padding: 0.25rem 0.6rem;
+  padding: 0.25rem 0.65rem;
   display: flex;
   align-items: center;
   gap: 0.35rem;
-  box-shadow: var(--shadow-card);
+  box-shadow: var(--shadow-modal);
   z-index: 6;
   backdrop-filter: blur(8px);
 }
@@ -752,7 +793,7 @@ body {
   background: transparent;
   border: none;
   color: var(--text-main);
-  padding: 0.4rem 0.6rem;
+  padding: 0.4rem 0.65rem;
   border-radius: var(--radius-full);
   font-size: 0.85rem;
   font-weight: 700;
@@ -773,111 +814,6 @@ body {
   min-width: 44px;
   text-align: center;
   font-variant-numeric: tabular-nums;
-}
-
-/* Lado derecho: Información del Producto (Shopify Panel) */
-.modal-details-side {
-  flex: 1;
-  padding: 2.5rem 2rem 2rem;
-  display: flex;
-  flex-direction: column;
-  overflow-y: auto;
-  background: #ffffff;
-}
-
-@media (max-width: 900px) {
-  .modal-details-side {
-    padding: 1.5rem;
-  }
-}
-
-.modal-vendor-tag {
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--text-muted);
-  margin-bottom: 0.4rem;
-}
-
-.modal-product-title {
-  font-size: 1.6rem;
-  font-weight: 800;
-  letter-spacing: -0.02em;
-  color: var(--text-main);
-  line-height: 1.25;
-  margin-bottom: 0.75rem;
-}
-
-.modal-status-pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  background: var(--tag-green-bg);
-  color: var(--tag-green-text);
-  font-size: 0.82rem;
-  font-weight: 700;
-  padding: 0.35rem 0.85rem;
-  border-radius: var(--radius-full);
-  margin-bottom: 1.25rem;
-  width: fit-content;
-}
-
-/* Caja de garantía / beneficios en el modal */
-.modal-features-box {
-  background: var(--bg-subtle);
-  border-radius: var(--radius-md);
-  padding: 1rem 1.2rem;
-  margin-bottom: 1.5rem;
-  font-size: 0.88rem;
-}
-
-.feature-row {
-  display: flex;
-  align-items: flex-start;
-  gap: 0.6rem;
-  margin-bottom: 0.6rem;
-  color: var(--text-secondary);
-}
-
-.feature-row:last-child {
-  margin-bottom: 0;
-}
-
-.feature-row strong {
-  color: var(--text-main);
-}
-
-/* Acciones en el modal */
-.modal-actions {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-  margin-top: auto;
-  padding-top: 1rem;
-}
-
-.btn-modal-share {
-  width: 100%;
-  background: var(--bg-dark);
-  border: 1px solid var(--bg-dark);
-  color: #ffffff;
-  padding: 0.85rem 1.25rem;
-  border-radius: var(--radius-sm);
-  font-size: 0.95rem;
-  font-weight: 700;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  transition: var(--transition);
-}
-
-.btn-modal-share:hover {
-  background: #1f2937;
-  border-color: #1f2937;
-  box-shadow: 0 4px 12px rgba(17, 24, 39, 0.2);
 }
 
 /* Toast */

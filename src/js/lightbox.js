@@ -1,7 +1,6 @@
 // =============================================================================
-// MODAL QUICK VIEW & ZOOM ESTILO SHOPIFY (DRAWER / SPLIT SCREEN)
+// MODAL DE ZOOM EXCLUSIVO PARA FOTOS (SIN DESCRIPCIONES)
 // =============================================================================
-import { CONFIG } from '../config.js';
 
 export class Lightbox {
   constructor(products) {
@@ -29,99 +28,21 @@ export class Lightbox {
     this.overlay.className = 'shopify-modal-overlay';
     this.overlay.setAttribute('role', 'dialog');
     this.overlay.setAttribute('aria-modal', 'true');
-    this.overlay.setAttribute('aria-label', 'Vista rápida de producto con zoom');
+    this.overlay.setAttribute('aria-label', 'Visor de imagen con zoom');
 
     this.overlay.innerHTML = `
       <div class="shopify-modal-backdrop"></div>
       
-      <div class="shopify-modal-card">
-        <!-- Botón cerrar (X) -->
-        <button class="modal-close-btn" id="modal-close" title="Cerrar ventana (Esc)" aria-label="Cerrar">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-            <line x1="18" y1="6" x2="6" y2="18"></line>
-            <line x1="6" y1="6" x2="18" y2="18"></line>
-          </svg>
-        </button>
-
-        <!-- LADO IZQUIERDO: VISOR DE IMAGEN CON ZOOM -->
-        <div class="modal-viewport-side" id="modal-viewport">
-          <div class="modal-image-wrapper" id="modal-img-wrapper">
-            <img class="modal-img" id="modal-img" src="" alt="" draggable="false" />
+      <div class="modal-zoom-container">
+        <!-- Barra superior limpia: Título, contador y botones -->
+        <header class="modal-zoom-header">
+          <div class="modal-zoom-title-box">
+            <h2 class="modal-zoom-title" id="modal-title">Título del Diseño</h2>
+            <span class="modal-zoom-counter" id="modal-counter">1 / 1</span>
           </div>
 
-          <!-- Flechas de navegación -->
-          <button class="modal-nav-arrow modal-nav-prev" id="modal-prev" title="Diseño anterior" aria-label="Anterior">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-              <polyline points="15 18 9 12 15 6"></polyline>
-            </svg>
-          </button>
-          <button class="modal-nav-arrow modal-nav-next" id="modal-next" title="Siguiente diseño" aria-label="Siguiente">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-              <polyline points="9 18 15 12 9 6"></polyline>
-            </svg>
-          </button>
-
-          <!-- Barra de controles de zoom -->
-          <div class="modal-zoom-bar">
-            <button class="zoom-btn" id="zoom-out-btn" title="Alejar (-)" aria-label="Alejar">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="11" cy="11" r="8"></circle>
-                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-                <line x1="8" y1="11" x2="14" y2="11"></line>
-              </svg>
-            </button>
-            <span id="modal-zoom-display">100%</span>
-            <button class="zoom-btn" id="zoom-in-btn" title="Acercar (+)" aria-label="Acercar">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="11" cy="11" r="8"></circle>
-                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-                <line x1="11" y1="8" x2="11" y2="14"></line>
-                <line x1="8" y1="11" x2="14" y2="11"></line>
-              </svg>
-            </button>
-            <button class="zoom-btn" id="zoom-reset-btn" title="Restablecer tamaño">1:1</button>
-          </div>
-        </div>
-
-        <!-- LADO DERECHO: PANEL DE INFORMACIÓN SHOPIFY -->
-        <div class="modal-details-side">
-          <div class="modal-vendor-tag">EDICIÓN 7 DE DICIEMBRE • CAJITA ARTESANAL</div>
-          <h2 class="modal-product-title" id="modal-title">Título del Diseño</h2>
-
-          <div class="modal-status-pill">
-            <span class="status-dot"></span> Disponible para pedido • 7 de Diciembre
-          </div>
-
-          <div class="modal-features-box">
-            <div class="feature-row">
-              <span>🕯️</span>
-              <div>
-                <strong>8 Velas con Deseos:</strong>
-                <p id="modal-intentions-text">Salud, Amor, Dinero, Familia, Sueños, Viajes, Unión, Dios.</p>
-              </div>
-            </div>
-            <div class="feature-row">
-              <span>🎁</span>
-              <div>
-                <strong>Presentación:</strong>
-                <p>Caja troquelada con motivos navideños y noche de velitas.</p>
-              </div>
-            </div>
-            <div class="feature-row">
-              <span>🚚</span>
-              <div>
-                <strong>Disponibilidad:</strong>
-                <p>Envíos y entregas programadas antes del 7 de diciembre.</p>
-              </div>
-            </div>
-          </div>
-
-          <p style="font-size: 0.82rem; color: #6b7280; margin-bottom: 1.25rem;">
-            💡 <em>Usa la rueda del ratón, doble clic o pellizca en la foto para hacer zoom a las velas.</em>
-          </p>
-
-          <div class="modal-actions">
-            <button class="btn-modal-share" id="modal-share-btn">
+          <div class="modal-zoom-actions">
+            <button class="modal-btn-icon" id="modal-share-btn" title="Compartir este diseño" aria-label="Compartir">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <circle cx="18" cy="5" r="3"></circle>
                 <circle cx="6" cy="12" r="3"></circle>
@@ -129,8 +50,53 @@ export class Lightbox {
                 <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
                 <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
               </svg>
-              Compartir este diseño
             </button>
+            <button class="modal-btn-icon" id="modal-close" title="Cerrar visor (Esc)" aria-label="Cerrar">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+              </svg>
+            </button>
+          </div>
+        </header>
+
+        <!-- Visor central dedicado con imagen a gran tamaño -->
+        <div class="modal-zoom-viewport" id="modal-viewport">
+          <div class="modal-image-wrapper" id="modal-img-wrapper">
+            <img class="modal-img" id="modal-img" src="" alt="" draggable="false" />
+          </div>
+
+          <!-- Flechas de navegación -->
+          <button class="modal-nav-arrow modal-nav-prev" id="modal-prev" title="Diseño anterior (←)" aria-label="Anterior">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="15 18 9 12 15 6"></polyline>
+            </svg>
+          </button>
+          <button class="modal-nav-arrow modal-nav-next" id="modal-next" title="Siguiente diseño (→)" aria-label="Siguiente">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+
+          <!-- Barra flotante de controles de zoom -->
+          <div class="modal-zoom-bar">
+            <button class="zoom-btn" id="zoom-out-btn" title="Alejar (-)" aria-label="Alejar">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                <line x1="8" y1="11" x2="14" y2="11"></line>
+              </svg>
+            </button>
+            <span id="modal-zoom-display">100%</span>
+            <button class="zoom-btn" id="zoom-in-btn" title="Acercar (+)" aria-label="Acercar">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                <line x1="11" y1="8" x2="11" y2="14"></line>
+                <line x1="8" y1="11" x2="14" y2="11"></line>
+              </svg>
+            </button>
+            <button class="zoom-btn" id="zoom-reset-btn" title="Restablecer tamaño">1:1</button>
           </div>
         </div>
       </div>
@@ -143,6 +109,7 @@ export class Lightbox {
     this.wrapper = this.overlay.querySelector('#modal-img-wrapper');
     this.viewport = this.overlay.querySelector('#modal-viewport');
     this.titleEl = this.overlay.querySelector('#modal-title');
+    this.counterEl = this.overlay.querySelector('#modal-counter');
     this.zoomDisplayEl = this.overlay.querySelector('#modal-zoom-display');
     this.prevBtn = this.overlay.querySelector('#modal-prev');
     this.nextBtn = this.overlay.querySelector('#modal-next');
@@ -282,7 +249,9 @@ export class Lightbox {
     this.img.src = item.url;
     this.img.alt = item.title;
     this.titleEl.textContent = item.title;
-
+    if (this.counterEl) {
+      this.counterEl.textContent = `${this.currentIndex + 1} / ${this.products.length}`;
+    }
 
     if (this.products.length <= 1) {
       this.prevBtn.style.display = 'none';
@@ -353,7 +322,7 @@ export class Lightbox {
 
     const shareData = {
       title: item.title,
-      text: `¡Mira esta cajita de velas para el 7 de diciembre! ${item.title}`,
+      text: `¡Mira este diseño de velas para el 7 de diciembre! ${item.title}`,
       url: window.location.href,
     };
 

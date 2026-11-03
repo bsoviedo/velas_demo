@@ -76,10 +76,6 @@ function renderStoreProducts(products, lightbox) {
     return;
   }
 
-  const intentions = (CONFIG.candleIntentions || ['Salud', 'Amor', 'Dinero', 'Familia', 'Sueños', 'Viajes', 'Unión', 'Dios'])
-    .slice(0, 4)
-    .map(word => `<span class="intention-chip">${word}</span>`)
-    .join('');
 
   grid.innerHTML = products.map((item) => {
     return `
@@ -106,31 +102,19 @@ function renderStoreProducts(products, lightbox) {
         </div>
 
         <div class="product-info">
-          <div>
-            <div class="product-vendor">Noche de Velitas • 8 Velas</div>
-            <h2 class="product-title">${item.title}</h2>
-            
-            <div class="product-status-tag">
-              <span class="status-dot"></span> Disponible • Edición 7 de Dic
-            </div>
-
-            <div class="product-intentions">
-              ${intentions}
-              <span class="intention-chip">+4 más</span>
-            </div>
-          </div>
+          <h2 class="product-title">${item.title}</h2>
 
           <div class="product-actions">
             <button 
               class="btn-shopify-primary"
               data-action="quick-view"
-              title="Ver detalle y ampliar con zoom"
+              title="Ampliar diseño con zoom"
             >
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
                 <circle cx="11" cy="11" r="8"></circle>
                 <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
               </svg>
-              Ver Detalle & Zoom
+              Ver Zoom
             </button>
           </div>
         </div>

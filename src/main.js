@@ -111,6 +111,8 @@ function getBoxIcon(color) {
   const lower = color.toLowerCase();
   if (lower.includes('negra')) return '⬛';
   if (lower.includes('dorada')) return '🟨';
+  if (lower.includes('verde')) return '🟩';
+  if (lower.includes('roja')) return '🟥';
   if (lower.includes('blanca')) return '⬜';
   return '📦';
 }

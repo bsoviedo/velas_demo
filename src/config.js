@@ -18,7 +18,7 @@ export const CONFIG = {
   // ===========================================================================
   // Compatible directamente con GitHub Pages nativo (sin depender de build de Vite)
   // Colores de velas: "Velas Blancas", "Velas Neón", "Velas Pastel"
-  // Colores de caja:  "Caja Negra", "Caja Dorada"
+  // Colores de caja:  "Caja Negra", "Caja Dorada", "Caja Verde", "Caja Roja"
   // Cambia "disponible: true" a "disponible: false" si se agota algún diseño.
   productos: [
     {
@@ -54,6 +54,41 @@ export const CONFIG = {
       titulo: 'Caja Dorada Virgen (Rojo y Verde 2)',
       colorCaja: 'Caja Dorada',
       colorVelas: 'Velas Blancas',
+      disponible: true,
+    },
+    {
+      archivo: 'caja-verde_velas-pastel_pesebre-noche-magica-1.jpg',
+      titulo: 'Caja Verde Pesebre (Velas Pastel 1)',
+      colorCaja: 'Caja Verde',
+      colorVelas: 'Velas Pastel',
+      disponible: true,
+    },
+    {
+      archivo: 'caja-verde_velas-neon_pesebre-noche-magica.jpg',
+      titulo: 'Caja Verde Pesebre (Velas Pastel 3)',
+      colorCaja: 'Caja Verde',
+      colorVelas: 'Velas Pastel',
+      disponible: true,
+    },
+    {
+      archivo: 'caja-roja_velas-pastel_navidad-regalos.jpg',
+      titulo: 'Caja Roja Regalos (Velas Pastel)',
+      colorCaja: 'Caja Roja',
+      colorVelas: 'Velas Pastel',
+      disponible: true,
+    },
+    {
+      archivo: 'caja-verde_velas-pastel_pesebre-noche-magica-2.jpg',
+      titulo: 'Caja Verde Pesebre (Velas Pastel 2)',
+      colorCaja: 'Caja Verde',
+      colorVelas: 'Velas Pastel',
+      disponible: true,
+    },
+    {
+      archivo: 'caja-roja_velas-neon_navidad-regalos.jpg',
+      titulo: 'Caja Roja Regalos (Velas Neón)',
+      colorCaja: 'Caja Roja',
+      colorVelas: 'Velas Neón',
       disponible: true,
     },
   ]

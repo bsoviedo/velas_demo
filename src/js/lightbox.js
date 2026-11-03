@@ -88,9 +88,8 @@ export class Lightbox {
           <div class="modal-vendor-tag">EDICIÓN 7 DE DICIEMBRE • CAJITA ARTESANAL</div>
           <h2 class="modal-product-title" id="modal-title">Título del Diseño</h2>
 
-          <div class="modal-price-box">
-            <span class="modal-price" id="modal-price">$25.000 COP</span>
-            <span class="modal-price-badge">🟢 Disponible</span>
+          <div class="modal-status-pill">
+            <span class="status-dot"></span> Disponible para pedido • 7 de Diciembre
           </div>
 
           <div class="modal-features-box">
@@ -151,7 +150,6 @@ export class Lightbox {
     this.wrapper = this.overlay.querySelector('#modal-img-wrapper');
     this.viewport = this.overlay.querySelector('#modal-viewport');
     this.titleEl = this.overlay.querySelector('#modal-title');
-    this.priceEl = this.overlay.querySelector('#modal-price');
     this.zoomDisplayEl = this.overlay.querySelector('#modal-zoom-display');
     this.orderBtn = this.overlay.querySelector('#modal-whatsapp-order');
     this.prevBtn = this.overlay.querySelector('#modal-prev');
@@ -292,7 +290,6 @@ export class Lightbox {
     this.img.src = item.url;
     this.img.alt = item.title;
     this.titleEl.textContent = item.title;
-    this.priceEl.textContent = CONFIG.defaultPrice || '$25.000 COP';
 
     // WhatsApp Link
     const message = CONFIG.whatsappOrderMessage.replace('{nombre}', item.title);

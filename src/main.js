@@ -97,7 +97,6 @@ function renderStoreProducts(products, lightbox) {
   grid.innerHTML = products.map((item) => {
     const orderMsg = encodeURIComponent(CONFIG.whatsappOrderMessage.replace('{nombre}', item.title));
     const whatsappUrl = `https://wa.me/${CONFIG.whatsappNumber}?text=${orderMsg}`;
-    const priceText = CONFIG.defaultPrice || '$25.000 COP';
 
     return `
       <article class="product-card" data-id="${item.id}" data-index="${item.index}">
@@ -127,9 +126,8 @@ function renderStoreProducts(products, lightbox) {
             <div class="product-vendor">Noche de Velitas • 8 Velas</div>
             <h2 class="product-title">${item.title}</h2>
             
-            <div class="product-price-wrapper">
-              <span class="product-price">${priceText}</span>
-              <span class="product-price-unit">/ cajita completa</span>
+            <div class="product-status-tag">
+              <span class="status-dot"></span> Disponible • Edición 7 de Dic
             </div>
 
             <div class="product-intentions">

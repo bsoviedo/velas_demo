@@ -26,10 +26,6 @@ export const CONFIG = {
   // Mensaje general del botón flotante de WhatsApp
   whatsappGeneralMessage: '¡Hola! Estoy viendo el catálogo de velas de la tienda y me gustaría recibir más información para hacer un pedido.',
 
-  // Precios estilo tienda Shopify
-  showPrice: true,
-  defaultPrice: '$25.000 COP',
-  priceNote: 'Precio por cajita (8 velas incluidas)',
 
   // Frases o palabras que vienen en las velas
   candleIntentions: ['Salud', 'Amor', 'Dinero', 'Familia', 'Sueños', 'Viajes', 'Unión', 'Dios'],

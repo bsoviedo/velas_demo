@@ -497,23 +497,28 @@ body {
   margin-bottom: 0.5rem;
 }
 
-/* Precio estilo Shopify */
-.product-price-wrapper {
-  display: flex;
-  align-items: baseline;
-  gap: 0.5rem;
-  margin-bottom: 0.75rem;
+/* Estado del producto en tarjeta */
+.product-status-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--tag-green-text);
+  background: var(--tag-green-bg);
+  padding: 0.22rem 0.65rem;
+  border-radius: var(--radius-full);
+  margin-bottom: 0.85rem;
+  width: fit-content;
 }
 
-.product-price {
-  font-size: 1.25rem;
-  font-weight: 800;
-  color: var(--text-main);
-}
-
-.product-price-unit {
-  font-size: 0.8rem;
-  color: var(--text-muted);
+.status-dot {
+  width: 7px;
+  height: 7px;
+  background: #10b981;
+  border-radius: 50%;
+  display: inline-block;
+  box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.25);
 }
 
 /* Lista de intenciones de velas */
@@ -810,28 +815,18 @@ body {
   margin-bottom: 0.75rem;
 }
 
-.modal-price-box {
-  display: flex;
-  align-items: baseline;
-  gap: 0.6rem;
-  margin-bottom: 1.25rem;
-  padding-bottom: 1.25rem;
-  border-bottom: 1px solid var(--border-light);
-}
-
-.modal-price {
-  font-size: 1.5rem;
-  font-weight: 800;
-  color: var(--text-main);
-}
-
-.modal-price-badge {
+.modal-status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
   background: var(--tag-green-bg);
   color: var(--tag-green-text);
-  font-size: 0.75rem;
+  font-size: 0.82rem;
   font-weight: 700;
-  padding: 0.25rem 0.6rem;
+  padding: 0.35rem 0.85rem;
   border-radius: var(--radius-full);
+  margin-bottom: 1.25rem;
+  width: fit-content;
 }
 
 /* Caja de garantía / beneficios en el modal */

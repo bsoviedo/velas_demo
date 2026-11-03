@@ -29,10 +29,10 @@ export const CONFIG = {
       disponible: true,
     },
     {
-      archivo: 'caja-dorada_velas-pastel_virgen-maria.jpg',
+      archivo: 'caja-dorada_velas-neon_virgen-maria.jpg',
       titulo: 'Caja Dorada Virgen María',
       colorCaja: 'Caja Dorada',
-      colorVelas: 'Velas Pastel',
+      colorVelas: 'Velas Neón',
       disponible: true,
     },
     {

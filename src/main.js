@@ -1,152 +1,173 @@
 // =============================================================================
-// MAIN APP - CATÁLOGO DE VELAS
+// MAIN APP - TIENDA ONLINE ESTILO SHOPIFY
 // =============================================================================
 import { CONFIG } from './config.js';
 import { getCandleProducts } from './js/catalog.js';
 import { Lightbox } from './js/lightbox.js';
 
 document.addEventListener('DOMContentLoaded', () => {
-  // 1. Cargar productos dinámicos desde src/velas/
+  // 1. Cargar dinámicamente imágenes desde src/velas/
   const allProducts = getCandleProducts();
   let currentProducts = [...allProducts];
 
-  // 2. Inicializar Lightbox interactivo
+  // 2. Inicializar Modal de Vista Rápida / Zoom
   const lightbox = new Lightbox(allProducts);
 
-  // 3. Vincular textos de configuración a la interfaz
+  // 3. Aplicar configuración al DOM
   applyConfig();
 
-  // 4. Renderizar catálogo
-  renderCatalog(currentProducts, lightbox);
+  // 4. Renderizar tarjetas de producto estilo Shopify
+  renderStoreProducts(currentProducts, lightbox);
 
-  // 5. Configurar buscador en tiempo real
+  // 5. Configurar buscador en vivo
   setupSearch(allProducts, lightbox);
 
-  // 6. Verificar si hay un diseño específico en la URL (ej. #vela-1)
+  // 6. Verificar hash en la URL
   checkUrlHash(allProducts, lightbox);
 });
 
 /**
- * Aplica los datos de CONFIG al DOM
+ * Vincula los textos y enlaces de CONFIG a los elementos de la interfaz
  */
 function applyConfig() {
-  const topAnnouncement = document.getElementById('top-announcement');
-  const catalogTitle = document.getElementById('catalog-title');
-  const catalogSubtitle = document.getElementById('catalog-subtitle');
-  const footerBrand = document.getElementById('footer-brand');
+  const announcementBar = document.getElementById('announcement-bar');
+  const brandName = document.getElementById('brand-name');
+  const footerBrand = document.getElementById('footer-brand-name');
+  const collectionTitle = document.getElementById('collection-title');
+  const collectionDesc = document.getElementById('collection-description');
+  const headerWhatsapp = document.getElementById('header-whatsapp-pill');
   const floatingWhatsapp = document.getElementById('floating-whatsapp');
 
-  if (topAnnouncement && CONFIG.topBannerText) {
-    topAnnouncement.textContent = CONFIG.topBannerText;
+  if (announcementBar && CONFIG.topBannerText) {
+    announcementBar.textContent = CONFIG.topBannerText;
   }
-  if (catalogTitle && CONFIG.catalogTitle) {
-    catalogTitle.textContent = CONFIG.catalogTitle;
-  }
-  if (catalogSubtitle && CONFIG.catalogSubtitle) {
-    catalogSubtitle.textContent = CONFIG.catalogSubtitle;
+  if (brandName && CONFIG.brandName) {
+    brandName.textContent = CONFIG.brandName;
   }
   if (footerBrand && CONFIG.brandName) {
     footerBrand.textContent = CONFIG.brandName;
   }
+  if (collectionTitle && CONFIG.catalogTitle) {
+    collectionTitle.textContent = CONFIG.catalogTitle;
+  }
+  if (collectionDesc && CONFIG.catalogSubtitle) {
+    collectionDesc.textContent = CONFIG.catalogSubtitle;
+  }
 
-  // Configurar enlace general de WhatsApp
+  // Enlaces de WhatsApp
+  const generalMsg = encodeURIComponent(CONFIG.whatsappGeneralMessage);
+  const generalUrl = `https://wa.me/${CONFIG.whatsappNumber}?text=${generalMsg}`;
+
+  if (headerWhatsapp && CONFIG.whatsappNumber) {
+    headerWhatsapp.href = generalUrl;
+  }
   if (floatingWhatsapp && CONFIG.whatsappNumber) {
-    const generalMsg = encodeURIComponent(CONFIG.whatsappGeneralMessage);
-    floatingWhatsapp.href = `https://wa.me/${CONFIG.whatsappNumber}?text=${generalMsg}`;
+    floatingWhatsapp.href = generalUrl;
   }
 }
 
 /**
- * Renderiza la grilla de productos
+ * Renderiza los productos en grilla con diseño de tarjeta de tienda online (Shopify)
  */
-function renderCatalog(products, lightbox) {
-  const grid = document.getElementById('catalog-grid');
-  const countNumber = document.getElementById('count-number');
+function renderStoreProducts(products, lightbox) {
+  const grid = document.getElementById('product-grid');
+  const countPill = document.getElementById('products-count');
   if (!grid) return;
 
-  // Actualizar contador
-  if (countNumber) {
-    countNumber.textContent = products.length;
+  if (countPill) {
+    countPill.textContent = `${products.length} ${products.length === 1 ? 'diseño' : 'diseños'}`;
   }
 
-  // Si no hay productos
   if (products.length === 0) {
     grid.innerHTML = `
-      <div class="empty-state">
-        <div class="empty-icon">🕯️</div>
-        <h3>No se encontraron diseños</h3>
-        <p>Intenta con otra palabra clave o limpia el buscador para ver todos los diseños disponibles.</p>
+      <div style="grid-column: 1 / -1; text-align: center; padding: 4rem 1rem; background: #ffffff; border-radius: 12px; border: 1px dashed #d1d5db;">
+        <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">🕯️</div>
+        <h3 style="font-size: 1.25rem; font-weight: 700; color: #111827; margin-bottom: 0.25rem;">No se encontraron diseños</h3>
+        <p style="color: #6b7280; font-size: 0.95rem;">Intenta con otro término de búsqueda para ver los productos disponibles.</p>
       </div>
     `;
     return;
   }
 
-  // Generar HTML de cada tarjeta
+  const intentions = (CONFIG.candleIntentions || ['Salud', 'Amor', 'Dinero', 'Familia', 'Sueños', 'Viajes', 'Unión', 'Dios'])
+    .slice(0, 4)
+    .map(word => `<span class="intention-chip">${word}</span>`)
+    .join('');
+
   grid.innerHTML = products.map((item) => {
-    // Generar enlace de WhatsApp para este producto
     const orderMsg = encodeURIComponent(CONFIG.whatsappOrderMessage.replace('{nombre}', item.title));
     const whatsappUrl = `https://wa.me/${CONFIG.whatsappNumber}?text=${orderMsg}`;
+    const priceText = CONFIG.defaultPrice || '$25.000 COP';
 
     return `
-      <article class="candle-card" data-id="${item.id}" data-index="${item.index}">
-        <div class="card-image-container" data-action="open-zoom" title="Haz clic para ampliar con zoom">
-          <span class="card-badge">Diseño Disponible</span>
+      <article class="product-card" data-id="${item.id}" data-index="${item.index}">
+        <div class="product-image-box" data-action="quick-view" title="Clic para ver detalle y hacer zoom">
+          <span class="product-tag-badge">Edición 7 de Dic</span>
+          
           <img 
-            class="card-img" 
+            class="product-img" 
             src="${item.url}" 
             alt="${item.title}" 
             loading="lazy"
           />
-          <div class="image-zoom-overlay">
-            <span class="zoom-hint-pill">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+
+          <div class="quick-view-overlay">
+            <button class="quick-view-btn" data-action="quick-view" aria-label="Vista rápida con zoom">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <circle cx="11" cy="11" r="8"></circle>
                 <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-                <line x1="11" y1="8" x2="11" y2="14"></line>
-                <line x1="8" y1="11" x2="14" y2="11"></line>
               </svg>
-              Ver Detalle / Zoom
-            </span>
+              Vista Rápida & Zoom
+            </button>
           </div>
         </div>
 
-        <div class="card-body">
+        <div class="product-info">
           <div>
-            <h2 class="card-title">${item.title}</h2>
-            <p class="card-desc">Cajita con 8 velas marcadas con deseos para la Noche de Velitas.</p>
+            <div class="product-vendor">Noche de Velitas • 8 Velas</div>
+            <h2 class="product-title">${item.title}</h2>
+            
+            <div class="product-price-wrapper">
+              <span class="product-price">${priceText}</span>
+              <span class="product-price-unit">/ cajita completa</span>
+            </div>
+
+            <div class="product-intentions">
+              ${intentions}
+              <span class="intention-chip">+4 más</span>
+            </div>
           </div>
 
-          <div class="card-actions">
-            <button class="btn btn-zoom" data-action="open-zoom" title="Ver con lupa y pantalla completa">
-              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="11" cy="11" r="8"></circle>
-                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-              </svg>
-              Zoom
-            </button>
-
+          <div class="product-actions">
             <a 
               href="${whatsappUrl}" 
               target="_blank" 
               rel="noopener noreferrer" 
-              class="btn btn-whatsapp-order" 
-              title="Pedir este diseño directamente por WhatsApp"
+              class="btn-shopify-primary"
+              title="Pedir por WhatsApp"
             >
-              <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M12.031 2C6.5 2 2 6.502 2 12.036c0 1.99.585 3.844 1.597 5.41L2 22l4.747-1.547a9.98 9.98 0 0 0 5.284 1.583h.004c5.53 0 10.03-4.502 10.03-10.036C22.065 6.502 17.562 2 12.031 2zm5.856 14.237c-.247.69-1.229 1.282-1.74 1.341-.475.056-1.077.08-3.488-.916-2.92-1.207-4.81-4.223-4.957-4.417-.145-.195-1.184-1.574-1.184-2.999s.754-2.124 1.022-2.414c.269-.29.587-.363.784-.363.196 0 .393.003.564.012.181.01.424-.069.664.508.247.59.843 2.057.917 2.207.073.15.122.327.024.521-.097.195-.146.316-.293.488-.146.173-.309.387-.44.52-.147.147-.3.308-.13.6.17.292.753 1.242 1.616 2.012 1.111.99 2.049 1.296 2.341 1.442.292.146.463.122.634-.074.17-.194.731-.852.926-1.144.195-.292.39-.244.657-.146.269.098 1.688.796 1.98 1.442.049.122.073.244.073.341 0 .268-.073.707-.32 1.397z"/>
               </svg>
-              Pedir
+              Pedir por WhatsApp
             </a>
+
+            <button class="btn-shopify-zoom" data-action="quick-view" title="Ver con lupa y pantalla completa" aria-label="Zoom">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+              </svg>
+            </button>
           </div>
         </div>
       </article>
     `;
   }).join('');
 
-  // Event listeners para abrir el zoom
-  grid.querySelectorAll('[data-action="open-zoom"]').forEach((elem) => {
+  // Event listeners para abrir la vista rápida
+  grid.querySelectorAll('[data-action="quick-view"]').forEach((elem) => {
     elem.addEventListener('click', (e) => {
-      const card = e.target.closest('.candle-card');
+      const card = e.target.closest('.product-card');
       if (card) {
         const index = parseInt(card.dataset.index, 10);
         lightbox.open(index);
@@ -156,7 +177,7 @@ function renderCatalog(products, lightbox) {
 }
 
 /**
- * Filtro de búsqueda en tiempo real
+ * Buscador en tiempo real
  */
 function setupSearch(allProducts, lightbox) {
   const searchInput = document.getElementById('search-input');
@@ -165,7 +186,7 @@ function setupSearch(allProducts, lightbox) {
   searchInput.addEventListener('input', (e) => {
     const query = e.target.value.toLowerCase().trim();
     if (!query) {
-      renderCatalog(allProducts, lightbox);
+      renderStoreProducts(allProducts, lightbox);
       return;
     }
 
@@ -173,12 +194,12 @@ function setupSearch(allProducts, lightbox) {
       return item.title.toLowerCase().includes(query) || item.filename.toLowerCase().includes(query);
     });
 
-    renderCatalog(filtered, lightbox);
+    renderStoreProducts(filtered, lightbox);
   });
 }
 
 /**
- * Si la URL contiene un hash como #vela-1 o #caja-dorada, abrir ese diseño
+ * Soporte para URLs con hash (ej. #vela-1)
  */
 function checkUrlHash(allProducts, lightbox) {
   const hash = window.location.hash.replace('#', '');

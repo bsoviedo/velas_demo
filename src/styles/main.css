@@ -1,32 +1,42 @@
 /* =============================================================================
-   ESTILOS PRINCIPALES - CATÁLOGO NOCHE DE VELITAS 🕯️✨
+   ESTILO SHOPIFY (CLEAN E-COMMERCE STOREFRONT) 🛍️✨
+   Inspirado en temas modernos de Shopify (Dawn / Prestige / Sense)
    ============================================================================= */
 
 :root {
-  --bg-primary: #080d18;
-  --bg-secondary: #0f172a;
-  --bg-card: rgba(18, 26, 45, 0.75);
-  --bg-card-hover: rgba(26, 38, 66, 0.9);
-  --border-gold: rgba(251, 191, 36, 0.25);
-  --border-gold-glow: rgba(251, 191, 36, 0.6);
-  --gold-primary: #fbbf24;
-  --gold-light: #fef08a;
-  --gold-dark: #d97706;
-  --flame-amber: #f97316;
-  --text-primary: #f8fafc;
-  --text-secondary: #cbd5e1;
-  --text-muted: #94a3b8;
+  --bg-page: #fafafb;
+  --bg-card: #ffffff;
+  --bg-subtle: #f3f4f6;
+  --bg-dark: #111827;
+  --border-light: #e5e7eb;
+  --border-medium: #d1d5db;
+  --border-dark: #1f2937;
+  
+  --text-main: #111827;
+  --text-secondary: #4b5563;
+  --text-muted: #6b7280;
+  --text-white: #ffffff;
+  
+  --accent-gold: #b45309;
+  --accent-gold-light: #fef3c7;
   --whatsapp-green: #25d366;
   --whatsapp-hover: #1eb855;
+  --tag-green-bg: #ecfdf5;
+  --tag-green-text: #065f46;
+  
+  --radius-xs: 4px;
   --radius-sm: 8px;
-  --radius-md: 14px;
-  --radius-lg: 20px;
+  --radius-md: 12px;
+  --radius-lg: 18px;
   --radius-full: 9999px;
-  --shadow-gold: 0 0 25px rgba(251, 191, 36, 0.2);
-  --shadow-card: 0 10px 30px -5px rgba(0, 0, 0, 0.6);
-  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  --font-heading: 'Outfit', system-ui, -apple-system, sans-serif;
-  --font-body: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
+  --shadow-card: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+  --shadow-card-hover: 0 16px 30px -6px rgba(0, 0, 0, 0.1), 0 4px 8px -2px rgba(0, 0, 0, 0.04);
+  --shadow-modal: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  
+  --font-family: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --transition: all 0.22s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 *, *::before, *::after {
@@ -41,227 +51,302 @@ html {
 }
 
 body {
-  font-family: var(--font-body);
-  background-color: var(--bg-primary);
-  color: var(--text-primary);
-  min-height: 100vh;
+  font-family: var(--font-family);
+  background-color: var(--bg-page);
+  color: var(--text-main);
   line-height: 1.5;
+  min-height: 100vh;
   overflow-x: hidden;
-  position: relative;
-  background-image: 
-    radial-gradient(ellipse at 50% -10%, rgba(245, 158, 11, 0.18), transparent 60%),
-    radial-gradient(circle at 10% 40%, rgba(217, 119, 6, 0.08), transparent 45%),
-    radial-gradient(circle at 90% 70%, rgba(251, 191, 36, 0.08), transparent 45%),
-    linear-gradient(180deg, #070b14 0%, #0d1527 50%, #080c16 100%);
-  background-attachment: fixed;
-}
-
-/* Fondo de estrellas tenues */
-body::before {
-  content: '';
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-image: 
-    radial-gradient(1px 1px at 20px 30px, #ffffff, rgba(0,0,0,0)),
-    radial-gradient(1.5px 1.5px at 150px 80px, #fef08a, rgba(0,0,0,0)),
-    radial-gradient(1px 1px at 300px 200px, #ffffff, rgba(0,0,0,0)),
-    radial-gradient(2px 2px at 450px 120px, #fbbf24, rgba(0,0,0,0)),
-    radial-gradient(1px 1px at 600px 350px, #ffffff, rgba(0,0,0,0)),
-    radial-gradient(1.5px 1.5px at 750px 220px, #fef08a, rgba(0,0,0,0)),
-    radial-gradient(1px 1px at 900px 80px, #ffffff, rgba(0,0,0,0)),
-    radial-gradient(2px 2px at 1100px 400px, #fbbf24, rgba(0,0,0,0));
-  background-repeat: repeat;
-  background-size: 800px 600px;
-  opacity: 0.45;
-  pointer-events: none;
-  z-index: 0;
-}
-
-/* Barra superior de anuncio */
-.top-announcement {
-  background: linear-gradient(90deg, #b45309, #d97706, #f59e0b, #d97706, #b45309);
-  background-size: 200% auto;
-  animation: shineGradient 6s linear infinite;
-  color: #1a0f00;
-  font-weight: 700;
-  font-size: 0.88rem;
-  text-align: center;
-  padding: 0.6rem 1rem;
-  letter-spacing: 0.02em;
-  position: relative;
-  z-index: 10;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.3);
-}
-
-@keyframes shineGradient {
-  to { background-position: 200% center; }
-}
-
-/* Contenedor principal */
-.app-container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 1.5rem 1rem 5rem 1rem;
-  position: relative;
-  z-index: 1;
 }
 
 /* =============================================================================
-   HERO / ENCABEZADO
+   BARRA DE ANUNCIO SUPERIOR (SHOPIFY ANNOUNCEMENT BAR)
    ============================================================================= */
-.catalog-header {
+.shopify-announcement-bar {
+  background-color: var(--bg-dark);
+  color: var(--text-white);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
   text-align: center;
-  padding: 2.5rem 1rem 2rem;
+  padding: 0.65rem 1rem;
   position: relative;
+  z-index: 100;
 }
 
-/* Velita animada decorativa */
-.candle-icon-wrapper {
-  display: inline-flex;
-  flex-direction: column;
-  align-items: center;
-  margin-bottom: 1rem;
-  position: relative;
+/* =============================================================================
+   HEADER / NAVBAR PRINCIPAL
+   ============================================================================= */
+.shopify-header {
+  background: #ffffff;
+  border-bottom: 1px solid var(--border-light);
+  position: sticky;
+  top: 0;
+  z-index: 90;
+  backdrop-filter: blur(10px);
+  box-shadow: var(--shadow-sm);
 }
 
-.candle-flame {
-  width: 18px;
-  height: 30px;
-  background: radial-gradient(circle at 50% 80%, #ffffff 0%, #fbbf24 40%, #f97316 75%, transparent 100%);
-  border-radius: 50% 50% 35% 35% / 60% 60% 40% 40%;
-  animation: flameFlicker 2s ease-in-out infinite alternate;
-  filter: drop-shadow(0 0 14px rgba(251, 191, 36, 0.9)) drop-shadow(0 0 30px rgba(249, 115, 22, 0.6));
-  transform-origin: 50% 90%;
-}
-
-@keyframes flameFlicker {
-  0% { transform: scale(1) rotate(-1.5deg); opacity: 0.95; }
-  25% { transform: scale(1.08, 0.95) rotate(2deg); opacity: 1; }
-  50% { transform: scale(0.96, 1.05) rotate(-2deg); opacity: 0.9; }
-  75% { transform: scale(1.04, 0.98) rotate(1deg); opacity: 1; }
-  100% { transform: scale(1) rotate(-1deg); opacity: 0.97; }
-}
-
-.candle-body-deco {
-  width: 24px;
-  height: 28px;
-  background: linear-gradient(180deg, #fef08a, #f59e0b);
-  border-radius: 4px 4px 6px 6px;
-  margin-top: -3px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.4);
-  border: 1px solid rgba(255,255,255,0.4);
-}
-
-.catalog-title {
-  font-family: var(--font-heading);
-  font-size: clamp(2rem, 5vw, 3.4rem);
-  font-weight: 800;
-  letter-spacing: -0.02em;
-  line-height: 1.15;
-  margin-bottom: 0.75rem;
-  background: linear-gradient(135deg, #ffffff 30%, #fef08a 70%, #fbbf24 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  filter: drop-shadow(0 2px 12px rgba(251, 191, 36, 0.25));
-}
-
-.catalog-subtitle {
-  font-size: clamp(1rem, 2.5vw, 1.25rem);
-  color: var(--text-secondary);
-  max-width: 650px;
-  margin: 0 auto 1.5rem auto;
-  font-weight: 400;
-}
-
-/* Badges de beneficios (rápido de leer para clientes) */
-.header-badges {
+.shopify-header-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0.9rem 1.5rem;
   display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 0.6rem;
-  margin-bottom: 2rem;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
 }
 
-.badge-pill {
-  display: inline-flex;
+.shopify-brand {
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  color: var(--text-main);
+}
+
+.shopify-brand-name {
+  font-size: 1.35rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  display: flex;
   align-items: center;
   gap: 0.4rem;
-  background: rgba(251, 191, 36, 0.08);
-  border: 1px solid rgba(251, 191, 36, 0.25);
-  color: var(--gold-light);
-  padding: 0.35rem 0.85rem;
+}
+
+.shopify-brand-tagline {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.shopify-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.header-whatsapp-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  background: var(--tag-green-bg);
+  border: 1px solid rgba(5, 150, 105, 0.2);
+  color: var(--tag-green-text);
+  padding: 0.45rem 0.95rem;
   border-radius: var(--radius-full);
   font-size: 0.85rem;
-  font-weight: 500;
-  backdrop-filter: blur(8px);
+  font-weight: 700;
+  text-decoration: none;
+  transition: var(--transition);
+}
+
+.header-whatsapp-pill:hover {
+  background: var(--whatsapp-green);
+  color: #ffffff;
+  border-color: var(--whatsapp-green);
+  box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
 }
 
 /* =============================================================================
-   BARRA DE FILTRO Y CONTADOR
+   CONTENEDOR PRINCIPAL
    ============================================================================= */
-.catalog-toolbar {
+.store-container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem 5rem;
+}
+
+@media (max-width: 640px) {
+  .store-container {
+    padding: 1.25rem 1rem 4rem;
+  }
+}
+
+/* =============================================================================
+   BREADCRUMBS & COLECCIÓN HERO
+   ============================================================================= */
+.shopify-breadcrumbs {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-bottom: 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.shopify-breadcrumbs a {
+  color: var(--text-muted);
+  text-decoration: none;
+}
+
+.shopify-breadcrumbs a:hover {
+  color: var(--text-main);
+  text-decoration: underline;
+}
+
+.collection-hero {
+  background: #ffffff;
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  padding: 2.25rem 2rem;
+  margin-bottom: 2rem;
+  box-shadow: var(--shadow-card);
+}
+
+@media (max-width: 640px) {
+  .collection-hero {
+    padding: 1.5rem 1.25rem;
+  }
+}
+
+.collection-header-top {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 0.6rem;
+}
+
+.badge-collection {
+  background: var(--accent-gold-light);
+  color: var(--accent-gold);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.3rem 0.75rem;
+  border-radius: var(--radius-full);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.collection-title {
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  color: var(--text-main);
+  line-height: 1.2;
+  margin-bottom: 0.6rem;
+}
+
+.collection-description {
+  color: var(--text-secondary);
+  font-size: 1.02rem;
+  max-width: 720px;
+  line-height: 1.55;
+  margin-bottom: 1.75rem;
+}
+
+/* Barra de beneficios (Shopify Value Props / Trust Badges) */
+.shopify-trust-bar {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border-light);
+}
+
+.trust-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.trust-icon {
+  width: 38px;
+  height: 38px;
+  border-radius: var(--radius-sm);
+  background: var(--bg-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  flex-shrink: 0;
+}
+
+.trust-title {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--text-main);
+  line-height: 1.2;
+}
+
+.trust-subtitle {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+/* =============================================================================
+   BARRA DE FILTRO / CONTADOR (SHOPIFY TOOLBAR)
+   ============================================================================= */
+.shopify-toolbar {
   display: flex;
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 1rem;
-  background: var(--bg-card);
-  border: 1px solid var(--border-gold);
-  border-radius: var(--radius-md);
-  padding: 0.9rem 1.25rem;
-  margin-bottom: 2rem;
-  backdrop-filter: blur(12px);
-  box-shadow: var(--shadow-card);
+  padding: 1rem 0;
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid var(--border-light);
 }
 
-.catalog-count-badge {
+.toolbar-count {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-secondary);
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  font-size: 0.95rem;
-  color: var(--text-secondary);
-  font-weight: 600;
 }
 
-.count-number {
-  background: var(--gold-primary);
-  color: #0d1527;
+.count-pill {
+  background: var(--bg-subtle);
+  color: var(--text-main);
   padding: 0.15rem 0.6rem;
   border-radius: var(--radius-full);
-  font-size: 0.85rem;
-  font-weight: 800;
+  font-size: 0.82rem;
+  font-weight: 700;
 }
 
-.search-box {
-  position: relative;
+.toolbar-controls {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
   flex: 1;
-  max-width: 320px;
-  min-width: 220px;
+  max-width: 420px;
+  justify-content: flex-end;
 }
 
-.search-box input {
+.shopify-search {
+  position: relative;
   width: 100%;
-  background: rgba(15, 23, 42, 0.8);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.shopify-search input {
+  width: 100%;
+  background: #ffffff;
+  border: 1px solid var(--border-medium);
   border-radius: var(--radius-full);
-  padding: 0.5rem 1rem 0.5rem 2.25rem;
-  color: var(--text-primary);
+  padding: 0.55rem 1rem 0.55rem 2.4rem;
   font-size: 0.9rem;
+  font-family: inherit;
+  color: var(--text-main);
   outline: none;
   transition: var(--transition);
 }
 
-.search-box input:focus {
-  border-color: var(--gold-primary);
-  box-shadow: 0 0 12px rgba(251, 191, 36, 0.3);
+.shopify-search input:focus {
+  border-color: var(--bg-dark);
+  box-shadow: 0 0 0 3px rgba(17, 24, 39, 0.1);
 }
 
-.search-box svg {
+.shopify-search svg {
   position: absolute;
-  left: 0.75rem;
+  left: 0.85rem;
   top: 50%;
   transform: translateY(-50%);
   color: var(--text-muted);
@@ -269,53 +354,50 @@ body::before {
 }
 
 /* =============================================================================
-   GRILLA DE PRODUCTOS / CATÁLOGO
+   GRILLA DE PRODUCTOS ESTILO SHOPIFY (DAWN THEME)
    ============================================================================= */
-.catalog-grid {
+.product-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
   gap: 1.75rem;
 }
 
 @media (max-width: 640px) {
-  .catalog-grid {
+  .product-grid {
     grid-template-columns: 1fr;
-    gap: 1.5rem;
+    gap: 1.25rem;
   }
 }
 
-/* Tarjeta de vela */
-.candle-card {
+/* Tarjeta de Producto Shopify */
+.product-card {
   background: var(--bg-card);
-  border: 1px solid var(--border-gold);
-  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
   overflow: hidden;
   display: flex;
   flex-direction: column;
   transition: var(--transition);
   position: relative;
-  backdrop-filter: blur(12px);
-  box-shadow: var(--shadow-card);
 }
 
-.candle-card:hover {
-  transform: translateY(-5px);
-  border-color: var(--border-gold-glow);
-  box-shadow: var(--shadow-card), var(--shadow-gold);
-  background: var(--bg-card-hover);
+.product-card:hover {
+  border-color: var(--border-medium);
+  box-shadow: var(--shadow-card-hover);
+  transform: translateY(-4px);
 }
 
-/* Contenedor de la imagen */
-.card-image-container {
+/* Imagen del producto */
+.product-image-box {
   position: relative;
   width: 100%;
   aspect-ratio: 4 / 5;
-  background: #090e1a;
+  background: #f4f4f5;
   overflow: hidden;
   cursor: pointer;
 }
 
-.card-img {
+.product-img {
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -324,68 +406,73 @@ body::before {
   display: block;
 }
 
-.candle-card:hover .card-img {
+.product-card:hover .product-img {
   transform: scale(1.05);
 }
 
-/* Overlay con botón de zoom en la imagen */
-.image-zoom-overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.65) 100%);
-  opacity: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: opacity 0.3s ease;
-  pointer-events: none;
-}
-
-.candle-card:hover .image-zoom-overlay {
-  opacity: 1;
-}
-
-.zoom-hint-pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  background: rgba(13, 21, 39, 0.85);
-  border: 1px solid var(--gold-primary);
-  color: var(--gold-light);
-  padding: 0.6rem 1.1rem;
-  border-radius: var(--radius-full);
-  font-size: 0.9rem;
-  font-weight: 600;
-  backdrop-filter: blur(8px);
-  box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-  transform: translateY(8px);
-  transition: transform 0.3s ease;
-}
-
-.candle-card:hover .zoom-hint-pill {
-  transform: translateY(0);
-}
-
-/* Badge en la esquina superior */
-.card-badge {
+/* Badges sobre la foto */
+.product-tag-badge {
   position: absolute;
   top: 0.85rem;
   left: 0.85rem;
-  background: rgba(13, 21, 39, 0.85);
-  border: 1px solid rgba(251, 191, 36, 0.4);
-  color: var(--gold-light);
-  font-size: 0.75rem;
+  background: #ffffff;
+  color: var(--text-main);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  font-size: 0.72rem;
   font-weight: 700;
-  padding: 0.3rem 0.7rem;
-  border-radius: var(--radius-full);
-  backdrop-filter: blur(8px);
+  letter-spacing: 0.06em;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  padding: 0.35rem 0.75rem;
+  border-radius: var(--radius-xs);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
   z-index: 2;
 }
 
-/* Cuerpo de la tarjeta */
-.card-body {
+/* Botón flotante "Vista Rápida / Zoom" (Shopify Quick View) */
+.quick-view-overlay {
+  position: absolute;
+  bottom: 1rem;
+  left: 1rem;
+  right: 1rem;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: var(--transition);
+  z-index: 3;
+  pointer-events: none;
+}
+
+.product-card:hover .quick-view-overlay {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.quick-view-btn {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(6px);
+  border: 1px solid var(--border-medium);
+  color: var(--text-main);
+  padding: 0.65rem 1rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.85rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  pointer-events: auto;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.quick-view-btn:hover {
+  background: #ffffff;
+  border-color: var(--bg-dark);
+}
+
+/* Información del producto (Card Body) */
+.product-info {
   padding: 1.25rem;
   display: flex;
   flex-direction: column;
@@ -393,193 +480,213 @@ body::before {
   justify-content: space-between;
 }
 
-.card-title {
-  font-family: var(--font-heading);
-  font-size: 1.2rem;
+.product-vendor {
+  font-size: 0.72rem;
   font-weight: 700;
-  color: #ffffff;
-  margin-bottom: 0.4rem;
-  line-height: 1.3;
-}
-
-.card-desc {
-  font-size: 0.88rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
   color: var(--text-muted);
-  margin-bottom: 1.1rem;
+  margin-bottom: 0.35rem;
 }
 
-/* Acciones en la tarjeta */
-.card-actions {
+.product-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--text-main);
+  line-height: 1.3;
+  margin-bottom: 0.5rem;
+}
+
+/* Precio estilo Shopify */
+.product-price-wrapper {
   display: flex;
-  gap: 0.6rem;
+  align-items: baseline;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.product-price {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--text-main);
+}
+
+.product-price-unit {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+/* Lista de intenciones de velas */
+.product-intentions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin-bottom: 1.25rem;
+}
+
+.intention-chip {
+  background: var(--bg-subtle);
+  color: var(--text-secondary);
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 0.2rem 0.55rem;
+  border-radius: var(--radius-xs);
+}
+
+/* Acciones de la tarjeta */
+.product-actions {
+  display: flex;
+  gap: 0.5rem;
   margin-top: auto;
 }
 
-.btn {
+.btn-shopify-primary {
+  flex: 1;
+  background: var(--bg-dark);
+  color: #ffffff;
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.92rem;
+  font-weight: 700;
+  text-decoration: none;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  padding: 0.7rem 1.1rem;
-  border-radius: var(--radius-md);
-  font-size: 0.92rem;
-  font-weight: 600;
+  border: 1px solid var(--bg-dark);
   cursor: pointer;
-  text-decoration: none;
   transition: var(--transition);
-  border: none;
-  outline: none;
-  text-align: center;
 }
 
-.btn-zoom {
-  background: rgba(255, 255, 255, 0.08);
-  color: var(--text-primary);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  flex: 1;
-}
-
-.btn-zoom:hover {
-  background: rgba(255, 255, 255, 0.16);
-  border-color: rgba(255, 255, 255, 0.3);
-}
-
-.btn-whatsapp-order {
+.btn-shopify-primary:hover {
   background: var(--whatsapp-green);
+  border-color: var(--whatsapp-green);
   color: #ffffff;
-  flex: 2;
-  box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+  box-shadow: 0 4px 14px rgba(37, 211, 102, 0.4);
 }
 
-.btn-whatsapp-order:hover {
-  background: var(--whatsapp-hover);
-  box-shadow: 0 6px 20px rgba(37, 211, 102, 0.5);
-  transform: translateY(-2px);
+.btn-shopify-zoom {
+  background: #ffffff;
+  border: 1px solid var(--border-medium);
+  color: var(--text-main);
+  padding: 0.75rem;
+  border-radius: var(--radius-sm);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: var(--transition);
 }
 
-/* =============================================================================
-   ESTADO VACÍO (NO RESULTS)
-   ============================================================================= */
-.empty-state {
-  text-align: center;
-  padding: 4rem 1.5rem;
-  background: var(--bg-card);
-  border: 1px dashed var(--border-gold);
-  border-radius: var(--radius-lg);
-  grid-column: 1 / -1;
-}
-
-.empty-icon {
-  font-size: 3rem;
-  margin-bottom: 1rem;
-}
-
-.empty-state h3 {
-  font-size: 1.4rem;
-  margin-bottom: 0.5rem;
-  color: var(--gold-light);
-}
-
-.empty-state p {
-  color: var(--text-muted);
-  max-width: 450px;
-  margin: 0 auto;
+.btn-shopify-zoom:hover {
+  background: var(--bg-subtle);
+  border-color: var(--bg-dark);
 }
 
 /* =============================================================================
-   VISOR MODAL / LIGHTBOX CON ZOOM
+   MODAL QUICK VIEW CON ZOOM (SHOPIFY PRODUCT DRAWER / MODAL)
    ============================================================================= */
-.lightbox-overlay {
+.shopify-modal-overlay {
   position: fixed;
   inset: 0;
-  z-index: 9999;
+  z-index: 1000;
   display: flex;
-  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.3s ease;
 }
 
-.lightbox-overlay.active {
+.shopify-modal-overlay.active {
   opacity: 1;
   pointer-events: auto;
 }
 
-body.lightbox-locked {
-  overflow: hidden !important;
-}
-
-.lightbox-backdrop {
+.shopify-modal-backdrop {
   position: absolute;
   inset: 0;
-  background: rgba(4, 7, 14, 0.94);
-  backdrop-filter: blur(16px);
+  background: rgba(17, 24, 39, 0.75);
+  backdrop-filter: blur(8px);
 }
 
-/* Header del Lightbox */
-.lightbox-header {
+.shopify-modal-card {
   position: relative;
   z-index: 2;
+  background: #ffffff;
+  width: 100%;
+  max-width: 1050px;
+  max-height: 90vh;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 1rem 1.5rem;
+  box-shadow: var(--shadow-modal);
+  animation: modalPop 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.lightbox-counter-badge {
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  color: var(--text-secondary);
-  font-size: 0.88rem;
-  font-weight: 700;
-  padding: 0.35rem 0.85rem;
+@keyframes modalPop {
+  from { transform: scale(0.96) translateY(10px); opacity: 0; }
+  to { transform: scale(1) translateY(0); opacity: 1; }
+}
+
+@media (max-width: 900px) {
+  .shopify-modal-card {
+    flex-direction: column;
+    max-height: 92vh;
+    overflow-y: auto;
+  }
+}
+
+/* Botón cerrar modal */
+.modal-close-btn {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  z-index: 10;
+  width: 40px;
+  height: 40px;
   border-radius: var(--radius-full);
-}
-
-.lightbox-header-actions {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.lb-btn {
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  color: #ffffff;
-  border-radius: var(--radius-full);
-  cursor: pointer;
+  background: #ffffff;
+  border: 1px solid var(--border-light);
+  color: var(--text-main);
   display: flex;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
+  box-shadow: var(--shadow-sm);
   transition: var(--transition);
 }
 
-.lb-btn:hover {
-  background: rgba(255, 255, 255, 0.25);
-  transform: scale(1.05);
+.modal-close-btn:hover {
+  background: var(--bg-subtle);
+  transform: rotate(90deg);
 }
 
-.lb-btn-icon {
-  width: 44px;
-  height: 44px;
-}
-
-/* Escenario central de la imagen */
-.lightbox-stage {
+/* Lado izquierdo: Visor de Imagen con Zoom */
+.modal-viewport-side {
+  flex: 1.25;
+  background: #f4f4f5;
   position: relative;
-  z-index: 1;
-  flex: 1;
   display: flex;
   align-items: center;
   justify-content: center;
+  min-height: 480px;
   overflow: hidden;
   user-select: none;
   touch-action: none;
 }
 
-.lightbox-img-wrapper {
+@media (max-width: 900px) {
+  .modal-viewport-side {
+    min-height: 380px;
+    max-height: 45vh;
+  }
+}
+
+.modal-image-wrapper {
   transform-origin: center center;
-  transition: transform 0.12s cubic-bezier(0.2, 0, 0.2, 1);
+  transition: transform 0.1s cubic-bezier(0.2, 0, 0.2, 1);
   cursor: zoom-in;
   will-change: transform;
   display: flex;
@@ -587,211 +694,273 @@ body.lightbox-locked {
   justify-content: center;
 }
 
-.lightbox-img {
-  max-width: 90vw;
-  max-height: 72vh;
+.modal-img {
+  max-width: 90%;
+  max-height: 80vh;
   object-fit: contain;
-  border-radius: var(--radius-md);
-  box-shadow: 0 15px 50px rgba(0, 0, 0, 0.8), 0 0 40px rgba(251, 191, 36, 0.15);
+  border-radius: var(--radius-sm);
   pointer-events: none;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
 }
 
-/* Botones de navegación (anterior / siguiente) */
-.lb-nav-btn {
+/* Flechas de navegación */
+.modal-nav-arrow {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  background: rgba(15, 23, 42, 0.75);
-  border: 1px solid rgba(251, 191, 36, 0.4);
-  color: var(--gold-light);
-  width: 52px;
-  height: 52px;
+  width: 44px;
+  height: 44px;
   border-radius: var(--radius-full);
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid var(--border-light);
+  color: var(--text-main);
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  z-index: 3;
-  backdrop-filter: blur(10px);
+  z-index: 5;
+  box-shadow: var(--shadow-card);
   transition: var(--transition);
 }
 
-.lb-nav-btn:hover {
-  background: var(--gold-primary);
-  color: #0d1527;
-  transform: translateY(-50%) scale(1.1);
-  box-shadow: 0 0 20px rgba(251, 191, 36, 0.5);
+.modal-nav-arrow:hover {
+  background: #ffffff;
+  transform: translateY(-50%) scale(1.08);
 }
 
-.lb-nav-prev { left: 1.25rem; }
-.lb-nav-next { right: 1.25rem; }
+.modal-nav-prev { left: 0.85rem; }
+.modal-nav-next { right: 0.85rem; }
 
-@media (max-width: 768px) {
-  .lb-nav-btn {
-    width: 44px;
-    height: 44px;
-  }
-  .lb-nav-prev { left: 0.5rem; }
-  .lb-nav-next { right: 0.5rem; }
-}
-
-/* Barra flotante de controles de zoom */
-.lightbox-zoom-toolbar {
+/* Controles de Zoom en la imagen */
+.modal-zoom-bar {
   position: absolute;
-  bottom: 6.8rem;
+  bottom: 1rem;
   left: 50%;
   transform: translateX(-50%);
-  z-index: 5;
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-full);
+  padding: 0.25rem 0.6rem;
   display: flex;
   align-items: center;
-  background: rgba(15, 23, 42, 0.85);
-  border: 1px solid rgba(251, 191, 36, 0.3);
-  border-radius: var(--radius-full);
-  padding: 0.25rem 0.5rem;
-  backdrop-filter: blur(12px);
-  box-shadow: 0 8px 30px rgba(0,0,0,0.6);
-  gap: 0.25rem;
+  gap: 0.35rem;
+  box-shadow: var(--shadow-card);
+  z-index: 6;
+  backdrop-filter: blur(8px);
 }
 
-.lb-zoom-btn {
+.zoom-btn {
   background: transparent;
   border: none;
-  color: #ffffff;
-  padding: 0.45rem 0.7rem;
+  color: var(--text-main);
+  padding: 0.4rem 0.6rem;
   border-radius: var(--radius-full);
+  font-size: 0.85rem;
+  font-weight: 700;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 0.85rem;
-  font-weight: 600;
   transition: var(--transition);
 }
 
-.lb-zoom-btn:hover {
-  background: rgba(255, 255, 255, 0.15);
-  color: var(--gold-primary);
+.zoom-btn:hover {
+  background: var(--bg-subtle);
 }
 
-#lb-zoom-level {
-  min-width: 46px;
+#modal-zoom-display {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  min-width: 44px;
   text-align: center;
   font-variant-numeric: tabular-nums;
-  color: var(--gold-light);
 }
 
-/* Footer del Lightbox con título y botón de WhatsApp */
-.lightbox-footer {
-  position: relative;
-  z-index: 2;
-  background: linear-gradient(0deg, rgba(8, 13, 24, 0.98) 60%, transparent 100%);
-  padding: 1.25rem 1.5rem 1.5rem;
+/* Lado derecho: Información del Producto (Shopify Panel) */
+.modal-details-side {
+  flex: 1;
+  padding: 2.5rem 2rem 2rem;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  background: #ffffff;
+}
+
+@media (max-width: 900px) {
+  .modal-details-side {
+    padding: 1.5rem;
+  }
+}
+
+.modal-vendor-tag {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 0.4rem;
+}
+
+.modal-product-title {
+  font-size: 1.6rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--text-main);
+  line-height: 1.25;
+  margin-bottom: 0.75rem;
+}
+
+.modal-price-box {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+  margin-bottom: 1.25rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.modal-price {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--text-main);
+}
+
+.modal-price-badge {
+  background: var(--tag-green-bg);
+  color: var(--tag-green-text);
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.25rem 0.6rem;
+  border-radius: var(--radius-full);
+}
+
+/* Caja de garantía / beneficios en el modal */
+.modal-features-box {
+  background: var(--bg-subtle);
+  border-radius: var(--radius-md);
+  padding: 1rem 1.2rem;
+  margin-bottom: 1.5rem;
+  font-size: 0.88rem;
+}
+
+.feature-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  margin-bottom: 0.6rem;
+  color: var(--text-secondary);
+}
+
+.feature-row:last-child {
+  margin-bottom: 0;
+}
+
+.feature-row strong {
+  color: var(--text-main);
+}
+
+/* Acciones en el modal */
+.modal-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-top: auto;
+  padding-top: 1rem;
+}
+
+.btn-modal-whatsapp {
+  background: var(--bg-dark);
+  color: #ffffff;
+  padding: 0.95rem 1.25rem;
+  border-radius: var(--radius-sm);
+  font-size: 1rem;
+  font-weight: 700;
+  text-decoration: none;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 1rem;
+  justify-content: center;
+  gap: 0.6rem;
+  transition: var(--transition);
+  box-shadow: 0 4px 12px rgba(17, 24, 39, 0.2);
 }
 
-.lightbox-title {
-  font-family: var(--font-heading);
-  font-size: 1.3rem;
-  font-weight: 700;
-  color: #ffffff;
-  margin-bottom: 0.2rem;
+.btn-modal-whatsapp:hover {
+  background: var(--whatsapp-green);
+  box-shadow: 0 6px 18px rgba(37, 211, 102, 0.4);
 }
 
-.lightbox-tip {
-  font-size: 0.82rem;
-  color: var(--text-muted);
+.btn-modal-share {
+  background: #ffffff;
+  border: 1px solid var(--border-medium);
+  color: var(--text-main);
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: var(--transition);
 }
 
-.lightbox-footer-action {
-  flex-shrink: 0;
-}
-
-@media (max-width: 640px) {
-  .lightbox-footer {
-    flex-direction: column;
-    align-items: stretch;
-    text-align: center;
-    padding-bottom: 1.75rem;
-  }
-  .lightbox-footer-action .btn {
-    width: 100%;
-  }
-  .lightbox-zoom-toolbar {
-    bottom: 9.5rem;
-  }
+.btn-modal-share:hover {
+  background: var(--bg-subtle);
 }
 
 /* =============================================================================
-   BOTÓN FLOTANTE GENERAL DE WHATSAPP
+   BOTÓN FLOTANTE DE WHATSAPP (SHOPIFY CHAT STYLE)
    ============================================================================= */
-.floating-whatsapp {
+.shopify-chat-bubble {
   position: fixed;
-  bottom: 1.75rem;
-  right: 1.75rem;
-  z-index: 900;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 800;
+  background: var(--whatsapp-green);
+  color: #ffffff;
+  border-radius: var(--radius-full);
+  padding: 0.85rem 1.35rem;
   display: inline-flex;
   align-items: center;
   gap: 0.6rem;
-  background: var(--whatsapp-green);
-  color: #ffffff;
-  padding: 0.85rem 1.3rem;
-  border-radius: var(--radius-full);
   text-decoration: none;
   font-weight: 700;
   font-size: 0.95rem;
-  box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4), 0 0 0 0 rgba(37, 211, 102, 0.7);
+  box-shadow: 0 8px 24px rgba(37, 211, 102, 0.35);
   transition: var(--transition);
-  animation: pulseWhatsapp 2.5s infinite;
 }
 
-.floating-whatsapp:hover {
+.shopify-chat-bubble:hover {
   background: var(--whatsapp-hover);
   transform: translateY(-3px) scale(1.03);
-  box-shadow: 0 12px 30px rgba(37, 211, 102, 0.6);
-}
-
-@keyframes pulseWhatsapp {
-  0% { box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4), 0 0 0 0 rgba(37, 211, 102, 0.5); }
-  70% { box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4), 0 0 0 15px rgba(37, 211, 102, 0); }
-  100% { box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4), 0 0 0 0 rgba(37, 211, 102, 0); }
+  box-shadow: 0 12px 28px rgba(37, 211, 102, 0.5);
 }
 
 @media (max-width: 640px) {
-  .floating-whatsapp {
+  .shopify-chat-bubble {
     bottom: 1.25rem;
     right: 1.25rem;
-    padding: 0.75rem 1rem;
-    font-size: 0.88rem;
-  }
-  .floating-whatsapp-text {
-    display: none;
-  }
-  .floating-whatsapp {
     padding: 0.85rem;
-    border-radius: 50%;
+  }
+  .shopify-chat-bubble span {
+    display: none;
   }
 }
 
-/* =============================================================================
-   TOAST NOTIFICACIÓN
-   ============================================================================= */
+/* Toast */
 .catalog-toast {
   position: fixed;
   bottom: 2rem;
   left: 50%;
   transform: translateX(-50%) translateY(100px);
-  background: rgba(15, 23, 42, 0.95);
-  border: 1px solid var(--gold-primary);
-  color: var(--gold-light);
+  background: var(--bg-dark);
+  color: #ffffff;
   padding: 0.75rem 1.5rem;
   border-radius: var(--radius-full);
   font-size: 0.9rem;
   font-weight: 600;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+  box-shadow: var(--shadow-modal);
   z-index: 10000;
   opacity: 0;
   transition: transform 0.3s ease, opacity 0.3s ease;
@@ -804,21 +973,26 @@ body.lightbox-locked {
 }
 
 /* =============================================================================
-   FOOTER
+   FOOTER (SHOPIFY CLEAN FOOTER)
    ============================================================================= */
-.site-footer {
-  text-align: center;
-  padding: 3rem 1rem 2rem;
+.shopify-footer {
+  background: #ffffff;
+  border-top: 1px solid var(--border-light);
+  padding: 3.5rem 1.5rem 2.5rem;
   color: var(--text-muted);
   font-size: 0.88rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
   margin-top: 4rem;
 }
 
-.site-footer p {
-  margin-bottom: 0.4rem;
+.shopify-footer-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  text-align: center;
 }
 
-.footer-gold {
-  color: var(--gold-primary);
+.shopify-footer-brand {
+  font-weight: 800;
+  color: var(--text-main);
+  font-size: 1.15rem;
+  margin-bottom: 0.5rem;
 }

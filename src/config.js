@@ -1,5 +1,5 @@
 // =============================================================================
-// CONFIGURACIÓN DEL CATÁLOGO DE VELAS
+// CONFIGURACIÓN DEL CATÁLOGO DE VELAS (ESTILO SHOPIFY)
 // =============================================================================
 // Modifica estos valores fácilmente según tus datos personales o de negocio.
 
@@ -12,25 +12,28 @@ export const CONFIG = {
   brandName: 'Velas Noche de Velitas',
 
   // Título principal del catálogo
-  catalogTitle: 'Colección Noche de Velitas ✨',
+  catalogTitle: 'Colección Noche de Velitas',
 
   // Subtítulo
-  catalogSubtitle: 'Diseños exclusivos en cajita listos para iluminar tus mejores deseos este 7 de diciembre',
+  catalogSubtitle: 'Cajitas de edición especial para encender tus mejores intenciones en familia este 7 de diciembre.',
 
-  // Mensaje promocional o aviso importante en la parte superior (opcional)
-  topBannerText: '🕯️ ¡Separa tus cajitas con anticipación! Envíos locales y entregas programadas.',
+  // Mensaje promocional de la barra superior (estilo anuncio Shopify)
+  topBannerText: '✨ EDICIÓN ESPECIAL 7 DE DICIEMBRE — SEPARA TUS CAJITAS CON ANTICIPACIÓN | ENVÍOS LOCALES Y NACIONALES',
 
   // Mensaje predeterminado al enviar pedido por WhatsApp
-  // Puedes usar {nombre} para que inserte el nombre del diseño automáticamente
-  whatsappOrderMessage: '¡Hola! Me encantó este diseño del catálogo: *{nombre}*. ¿Tienen disponibilidad y qué precio tiene?',
+  whatsappOrderMessage: '¡Hola! Me encantó este diseño de su tienda: *{nombre}*. ¿Tienen unidades disponibles para el 7 de diciembre y cuál es el precio?',
 
   // Mensaje general del botón flotante de WhatsApp
-  whatsappGeneralMessage: '¡Hola! Estoy viendo el catálogo de velas para el 7 de diciembre y quiero más información, por favor.',
+  whatsappGeneralMessage: '¡Hola! Estoy viendo el catálogo de velas de la tienda y me gustaría recibir más información para hacer un pedido.',
 
-  // Moneda y notas adicionales si deseas mostrar precios o mensajes
-  showPrice: false, // Cambia a true si quieres mostrar un precio general o individual
+  // Precios estilo tienda Shopify
+  showPrice: true,
   defaultPrice: '$25.000 COP',
-  
-  // Enlace opcional a redes sociales (dejar en blanco '' si no se usa)
+  priceNote: 'Precio por cajita (8 velas incluidas)',
+
+  // Frases o palabras que vienen en las velas
+  candleIntentions: ['Salud', 'Amor', 'Dinero', 'Familia', 'Sueños', 'Viajes', 'Unión', 'Dios'],
+
+  // Enlace opcional a redes sociales
   instagramUrl: '',
 };

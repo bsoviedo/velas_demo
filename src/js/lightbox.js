@@ -1,5 +1,5 @@
 // =============================================================================
-// VISOR LIGHTBOX CON ZOOM INTERACTIVO Y DETALLE
+// MODAL QUICK VIEW & ZOOM ESTILO SHOPIFY (DRAWER / SPLIT SCREEN)
 // =============================================================================
 import { CONFIG } from '../config.js';
 
@@ -26,108 +26,142 @@ export class Lightbox {
 
   createElements() {
     this.overlay = document.createElement('div');
-    this.overlay.className = 'lightbox-overlay';
+    this.overlay.className = 'shopify-modal-overlay';
     this.overlay.setAttribute('role', 'dialog');
     this.overlay.setAttribute('aria-modal', 'true');
-    this.overlay.setAttribute('aria-label', 'Visor de imagen con zoom');
+    this.overlay.setAttribute('aria-label', 'Vista rápida de producto con zoom');
 
     this.overlay.innerHTML = `
-      <div class="lightbox-backdrop"></div>
+      <div class="shopify-modal-backdrop"></div>
       
-      <header class="lightbox-header">
-        <div class="lightbox-counter-badge" id="lb-counter">1 / 1</div>
-        <div class="lightbox-header-actions">
-          <button class="lb-btn lb-btn-icon" id="lb-btn-share" title="Compartir diseño" aria-label="Compartir">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="18" cy="5" r="3"></circle>
-              <circle cx="6" cy="12" r="3"></circle>
-              <circle cx="18" cy="19" r="3"></circle>
-              <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
-              <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+      <div class="shopify-modal-card">
+        <!-- Botón cerrar (X) -->
+        <button class="modal-close-btn" id="modal-close" title="Cerrar ventana (Esc)" aria-label="Cerrar">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+
+        <!-- LADO IZQUIERDO: VISOR DE IMAGEN CON ZOOM -->
+        <div class="modal-viewport-side" id="modal-viewport">
+          <div class="modal-image-wrapper" id="modal-img-wrapper">
+            <img class="modal-img" id="modal-img" src="" alt="" draggable="false" />
+          </div>
+
+          <!-- Flechas de navegación -->
+          <button class="modal-nav-arrow modal-nav-prev" id="modal-prev" title="Diseño anterior" aria-label="Anterior">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="15 18 9 12 15 6"></polyline>
             </svg>
           </button>
-          <button class="lb-btn lb-btn-icon" id="lb-btn-close" title="Cerrar visor (Esc)" aria-label="Cerrar">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <line x1="18" y1="6" x2="6" y2="18"></line>
-              <line x1="6" y1="6" x2="18" y2="18"></line>
+          <button class="modal-nav-arrow modal-nav-next" id="modal-next" title="Siguiente diseño" aria-label="Siguiente">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="9 18 15 12 9 6"></polyline>
             </svg>
           </button>
+
+          <!-- Barra de controles de zoom -->
+          <div class="modal-zoom-bar">
+            <button class="zoom-btn" id="zoom-out-btn" title="Alejar (-)" aria-label="Alejar">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                <line x1="8" y1="11" x2="14" y2="11"></line>
+              </svg>
+            </button>
+            <span id="modal-zoom-display">100%</span>
+            <button class="zoom-btn" id="zoom-in-btn" title="Acercar (+)" aria-label="Acercar">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                <line x1="11" y1="8" x2="11" y2="14"></line>
+                <line x1="8" y1="11" x2="14" y2="11"></line>
+              </svg>
+            </button>
+            <button class="zoom-btn" id="zoom-reset-btn" title="Restablecer tamaño">1:1</button>
+          </div>
         </div>
-      </header>
 
-      <div class="lightbox-stage" id="lb-stage">
-        <div class="lightbox-img-wrapper" id="lb-wrapper">
-          <img class="lightbox-img" id="lb-image" src="" alt="" draggable="false" />
+        <!-- LADO DERECHO: PANEL DE INFORMACIÓN SHOPIFY -->
+        <div class="modal-details-side">
+          <div class="modal-vendor-tag">EDICIÓN 7 DE DICIEMBRE • CAJITA ARTESANAL</div>
+          <h2 class="modal-product-title" id="modal-title">Título del Diseño</h2>
+
+          <div class="modal-price-box">
+            <span class="modal-price" id="modal-price">$25.000 COP</span>
+            <span class="modal-price-badge">🟢 Disponible</span>
+          </div>
+
+          <div class="modal-features-box">
+            <div class="feature-row">
+              <span>🕯️</span>
+              <div>
+                <strong>8 Velas con Deseos:</strong>
+                <p id="modal-intentions-text">Salud, Amor, Dinero, Familia, Sueños, Viajes, Unión, Dios.</p>
+              </div>
+            </div>
+            <div class="feature-row">
+              <span>🎁</span>
+              <div>
+                <strong>Presentación:</strong>
+                <p>Caja troquelada con motivos navideños y noche de velitas.</p>
+              </div>
+            </div>
+            <div class="feature-row">
+              <span>🚚</span>
+              <div>
+                <strong>Disponibilidad:</strong>
+                <p>Envíos y entregas programadas antes del 7 de diciembre.</p>
+              </div>
+            </div>
+          </div>
+
+          <p style="font-size: 0.82rem; color: #6b7280; margin-bottom: 1.25rem;">
+            💡 <em>Usa la rueda del ratón, doble clic o pellizca en la foto para hacer zoom a las velas.</em>
+          </p>
+
+          <div class="modal-actions">
+            <a href="#" target="_blank" rel="noopener noreferrer" class="btn-modal-whatsapp" id="modal-whatsapp-order">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12.031 2C6.5 2 2 6.502 2 12.036c0 1.99.585 3.844 1.597 5.41L2 22l4.747-1.547a9.98 9.98 0 0 0 5.284 1.583h.004c5.53 0 10.03-4.502 10.03-10.036C22.065 6.502 17.562 2 12.031 2zm5.856 14.237c-.247.69-1.229 1.282-1.74 1.341-.475.056-1.077.08-3.488-.916-2.92-1.207-4.81-4.223-4.957-4.417-.145-.195-1.184-1.574-1.184-2.999s.754-2.124 1.022-2.414c.269-.29.587-.363.784-.363.196 0 .393.003.564.012.181.01.424-.069.664.508.247.59.843 2.057.917 2.207.073.15.122.327.024.521-.097.195-.146.316-.293.488-.146.173-.309.387-.44.52-.147.147-.3.308-.13.6.17.292.753 1.242 1.616 2.012 1.111.99 2.049 1.296 2.341 1.442.292.146.463.122.634-.074.17-.194.731-.852.926-1.144.195-.292.39-.244.657-.146.269.098 1.688.796 1.98 1.442.049.122.073.244.073.341 0 .268-.073.707-.32 1.397z"/>
+              </svg>
+              Pedir este diseño por WhatsApp
+            </a>
+
+            <button class="btn-modal-share" id="modal-share-btn">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="18" cy="5" r="3"></circle>
+                <circle cx="6" cy="12" r="3"></circle>
+                <circle cx="18" cy="19" r="3"></circle>
+                <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+                <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+              </svg>
+              Compartir diseño
+            </button>
+          </div>
         </div>
-
-        <button class="lb-nav-btn lb-nav-prev" id="lb-prev" title="Anterior diseño (Flecha izquierda)" aria-label="Anterior">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="15 18 9 12 15 6"></polyline>
-          </svg>
-        </button>
-
-        <button class="lb-nav-btn lb-nav-next" id="lb-next" title="Siguiente diseño (Flecha derecha)" aria-label="Siguiente">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="9 18 15 12 9 6"></polyline>
-          </svg>
-        </button>
       </div>
-
-      <div class="lightbox-zoom-toolbar">
-        <button class="lb-zoom-btn" id="lb-zoom-out" title="Alejar (-)" aria-label="Alejar">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="11" cy="11" r="8"></circle>
-            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-            <line x1="8" y1="11" x2="14" y2="11"></line>
-          </svg>
-        </button>
-        <button class="lb-zoom-btn" id="lb-zoom-reset" title="Restablecer tamaño" aria-label="Restablecer">
-          <span id="lb-zoom-level">100%</span>
-        </button>
-        <button class="lb-zoom-btn" id="lb-zoom-in" title="Acercar (+)" aria-label="Acercar">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="11" cy="11" r="8"></circle>
-            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-            <line x1="11" y1="8" x2="11" y2="14"></line>
-            <line x1="8" y1="11" x2="14" y2="11"></line>
-          </svg>
-        </button>
-      </div>
-
-      <footer class="lightbox-footer">
-        <div class="lightbox-caption">
-          <h2 class="lightbox-title" id="lb-title">Título del Diseño</h2>
-          <p class="lightbox-tip">💡 Doble clic o rueda del mouse para hacer zoom / Toca y arrastra para mover</p>
-        </div>
-        <div class="lightbox-footer-action">
-          <a href="#" target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp-order" id="lb-order-btn">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M12.031 2C6.5 2 2 6.502 2 12.036c0 1.99.585 3.844 1.597 5.41L2 22l4.747-1.547a9.98 9.98 0 0 0 5.284 1.583h.004c5.53 0 10.03-4.502 10.03-10.036C22.065 6.502 17.562 2 12.031 2zm5.856 14.237c-.247.69-1.229 1.282-1.74 1.341-.475.056-1.077.08-3.488-.916-2.92-1.207-4.81-4.223-4.957-4.417-.145-.195-1.184-1.574-1.184-2.999s.754-2.124 1.022-2.414c.269-.29.587-.363.784-.363.196 0 .393.003.564.012.181.01.424-.069.664.508.247.59.843 2.057.917 2.207.073.15.122.327.024.521-.097.195-.146.316-.293.488-.146.173-.309.387-.44.52-.147.147-.3.308-.13.6.17.292.753 1.242 1.616 2.012 1.111.99 2.049 1.296 2.341 1.442.292.146.463.122.634-.074.17-.194.731-.852.926-1.144.195-.292.39-.244.657-.146.269.098 1.688.796 1.98 1.442.049.122.073.244.073.341 0 .268-.073.707-.32 1.397z"/>
-            </svg>
-            Pedir este diseño por WhatsApp
-          </a>
-        </div>
-      </footer>
     `;
 
     document.body.appendChild(this.overlay);
 
-    // Guardar referencias
-    this.img = this.overlay.querySelector('#lb-image');
-    this.wrapper = this.overlay.querySelector('#lb-wrapper');
-    this.stage = this.overlay.querySelector('#lb-stage');
-    this.titleEl = this.overlay.querySelector('#lb-title');
-    this.counterEl = this.overlay.querySelector('#lb-counter');
-    this.zoomLevelEl = this.overlay.querySelector('#lb-zoom-level');
-    this.orderBtn = this.overlay.querySelector('#lb-order-btn');
-    this.prevBtn = this.overlay.querySelector('#lb-prev');
-    this.nextBtn = this.overlay.querySelector('#lb-next');
-    this.closeBtn = this.overlay.querySelector('#lb-btn-close');
-    this.shareBtn = this.overlay.querySelector('#lb-btn-share');
-    this.backdrop = this.overlay.querySelector('.lightbox-backdrop');
-    this.zoomInBtn = this.overlay.querySelector('#lb-zoom-in');
-    this.zoomOutBtn = this.overlay.querySelector('#lb-zoom-out');
-    this.zoomResetBtn = this.overlay.querySelector('#lb-zoom-reset');
+    // Guardar referencias del DOM
+    this.img = this.overlay.querySelector('#modal-img');
+    this.wrapper = this.overlay.querySelector('#modal-img-wrapper');
+    this.viewport = this.overlay.querySelector('#modal-viewport');
+    this.titleEl = this.overlay.querySelector('#modal-title');
+    this.priceEl = this.overlay.querySelector('#modal-price');
+    this.zoomDisplayEl = this.overlay.querySelector('#modal-zoom-display');
+    this.orderBtn = this.overlay.querySelector('#modal-whatsapp-order');
+    this.prevBtn = this.overlay.querySelector('#modal-prev');
+    this.nextBtn = this.overlay.querySelector('#modal-next');
+    this.closeBtn = this.overlay.querySelector('#modal-close');
+    this.backdrop = this.overlay.querySelector('.shopify-modal-backdrop');
+    this.zoomInBtn = this.overlay.querySelector('#zoom-in-btn');
+    this.zoomOutBtn = this.overlay.querySelector('#zoom-out-btn');
+    this.zoomResetBtn = this.overlay.querySelector('#zoom-reset-btn');
+    this.shareBtn = this.overlay.querySelector('#modal-share-btn');
   }
 
   bindEvents() {
@@ -158,11 +192,11 @@ export class Lightbox {
     // Doble clic para alternar zoom
     this.wrapper.addEventListener('dblclick', (e) => {
       e.preventDefault();
-      this.toggleZoom(e.clientX, e.clientY);
+      this.toggleZoom();
     });
 
     // Rueda del ratón para zoom
-    this.stage.addEventListener('wheel', (e) => {
+    this.viewport.addEventListener('wheel', (e) => {
       if (!this.isOpen) return;
       e.preventDefault();
       const delta = e.deltaY < 0 ? 0.25 : -0.25;
@@ -241,13 +275,13 @@ export class Lightbox {
     this.resetZoom();
     this.renderCurrent();
     this.overlay.classList.add('active');
-    document.body.classList.add('lightbox-locked');
+    document.body.style.overflow = 'hidden';
   }
 
   close() {
     this.isOpen = false;
     this.overlay.classList.remove('active');
-    document.body.classList.remove('lightbox-locked');
+    document.body.style.overflow = '';
     this.resetZoom();
   }
 
@@ -258,14 +292,13 @@ export class Lightbox {
     this.img.src = item.url;
     this.img.alt = item.title;
     this.titleEl.textContent = item.title;
-    this.counterEl.textContent = `${this.currentIndex + 1} / ${this.products.length}`;
+    this.priceEl.textContent = CONFIG.defaultPrice || '$25.000 COP';
 
-    // Construir enlace de WhatsApp con el mensaje personalizado
+    // WhatsApp Link
     const message = CONFIG.whatsappOrderMessage.replace('{nombre}', item.title);
     const whatsappUrl = `https://wa.me/${CONFIG.whatsappNumber}?text=${encodeURIComponent(message)}`;
     this.orderBtn.href = whatsappUrl;
 
-    // Deshabilitar botones de navegación si solo hay 1 producto
     if (this.products.length <= 1) {
       this.prevBtn.style.display = 'none';
       this.nextBtn.style.display = 'none';
@@ -301,7 +334,7 @@ export class Lightbox {
     this.updateTransform();
   }
 
-  toggleZoom(originX = null, originY = null) {
+  toggleZoom() {
     if (this.scale > 1.2) {
       this.resetZoom();
     } else {
@@ -324,8 +357,8 @@ export class Lightbox {
       this.wrapper.style.transform = `translate(${this.translateX}px, ${this.translateY}px) scale(${this.scale})`;
       this.wrapper.style.cursor = this.scale > 1 ? 'grab' : 'zoom-in';
     }
-    if (this.zoomLevelEl) {
-      this.zoomLevelEl.textContent = `${Math.round(this.scale * 100)}%`;
+    if (this.zoomDisplayEl) {
+      this.zoomDisplayEl.textContent = `${Math.round(this.scale * 100)}%`;
     }
   }
 
@@ -335,21 +368,18 @@ export class Lightbox {
 
     const shareData = {
       title: item.title,
-      text: `¡Mira este diseño de velas para el 7 de diciembre! ${item.title}`,
+      text: `¡Mira esta cajita de velas para el 7 de diciembre! ${item.title}`,
       url: window.location.href,
     };
 
     if (navigator.share) {
       try {
         await navigator.share(shareData);
-      } catch (err) {
-        // Ignorar si canceló el share
-      }
+      } catch (err) {}
     } else {
-      // Fallback: copiar enlace al portapapeles
       try {
         await navigator.clipboard.writeText(window.location.href);
-        this.showToast('¡Enlace del catálogo copiado al portapapeles!');
+        this.showToast('¡Enlace del diseño copiado al portapapeles!');
       } catch (err) {
         this.showToast('Copia la URL del navegador para compartir.');
       }

@@ -14,41 +14,47 @@ export const CONFIG = {
   topBannerText: '✨ EDICIÓN ESPECIAL 7 DE DICIEMBRE — CATÁLOGO DE DISEÑOS DISPONIBLES',
 
   // ===========================================================================
-  // INVENTARIO Y CLASIFICACIÓN
+  // LISTA DE DISEÑOS & CLASIFICACIÓN
   // ===========================================================================
-  // Colores de velas oficiales: "Velas Blancas", "Velas Neón", "Velas Pastel"
-  // Colores de caja oficiales:  "Caja Negra", "Caja Dorada"
-  // Para marcar como agotado, cambia "disponible: true" a "disponible: false"
-  inventario: {
-    'caja-negra_velas-neon_noche-de-velitas.jpg': {
+  // Compatible directamente con GitHub Pages nativo (sin depender de build de Vite)
+  // Colores de velas: "Velas Blancas", "Velas Neón", "Velas Pastel"
+  // Colores de caja:  "Caja Negra", "Caja Dorada"
+  // Cambia "disponible: true" a "disponible: false" si se agota algún diseño.
+  productos: [
+    {
+      archivo: 'caja-negra_velas-neon_noche-de-velitas.jpg',
       titulo: 'Caja Negra Noche de Velitas',
       colorCaja: 'Caja Negra',
       colorVelas: 'Velas Neón',
-      disponible: true, // <-- Cambia a false si se agota
+      disponible: true,
     },
-    'caja-dorada_velas-pastel_virgen-maria.jpg': {
+    {
+      archivo: 'caja-dorada_velas-pastel_virgen-maria.jpg',
       titulo: 'Caja Dorada Virgen María',
       colorCaja: 'Caja Dorada',
-      colorVelas: 'Velas Neón',
-      disponible: true, // <-- Cambia a false si se agota
+      colorVelas: 'Velas Pastel',
+      disponible: true,
     },
-    'caja-dorada_velas-blancas_pesebre-navideno.jpg': {
+    {
+      archivo: 'caja-dorada_velas-blancas_pesebre-navideno.jpg',
       titulo: 'Caja Dorada Pesebre Navideño',
       colorCaja: 'Caja Dorada',
       colorVelas: 'Velas Blancas',
-      disponible: true, // <-- Cambia a false si se agota
+      disponible: true,
     },
-    'caja-dorada_velas-blancas_virgen-navidad-1.jpg': {
+    {
+      archivo: 'caja-dorada_velas-blancas_virgen-navidad-1.jpg',
       titulo: 'Caja Dorada Virgen (Rojo y Verde 1)',
       colorCaja: 'Caja Dorada',
       colorVelas: 'Velas Blancas',
-      disponible: true, // <-- Cambia a false si se agota
+      disponible: true,
     },
-    'caja-dorada_velas-blancas_virgen-navidad-2.jpg': {
+    {
+      archivo: 'caja-dorada_velas-blancas_virgen-navidad-2.jpg',
       titulo: 'Caja Dorada Virgen (Rojo y Verde 2)',
       colorCaja: 'Caja Dorada',
       colorVelas: 'Velas Blancas',
-      disponible: true, // <-- Cambia a false si se agota
+      disponible: true,
     },
-  }
+  ]
 };

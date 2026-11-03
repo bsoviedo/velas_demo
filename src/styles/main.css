@@ -231,7 +231,7 @@ body {
   font-size: 1.02rem;
   max-width: 720px;
   line-height: 1.55;
-  margin-bottom: 1.75rem;
+  margin-bottom: 0;
 }
 
 /* Barra de beneficios (Shopify Value Props / Trust Badges) */

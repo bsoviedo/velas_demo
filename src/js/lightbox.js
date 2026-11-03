@@ -121,13 +121,6 @@ export class Lightbox {
           </p>
 
           <div class="modal-actions">
-            <a href="#" target="_blank" rel="noopener noreferrer" class="btn-modal-whatsapp" id="modal-whatsapp-order">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M12.031 2C6.5 2 2 6.502 2 12.036c0 1.99.585 3.844 1.597 5.41L2 22l4.747-1.547a9.98 9.98 0 0 0 5.284 1.583h.004c5.53 0 10.03-4.502 10.03-10.036C22.065 6.502 17.562 2 12.031 2zm5.856 14.237c-.247.69-1.229 1.282-1.74 1.341-.475.056-1.077.08-3.488-.916-2.92-1.207-4.81-4.223-4.957-4.417-.145-.195-1.184-1.574-1.184-2.999s.754-2.124 1.022-2.414c.269-.29.587-.363.784-.363.196 0 .393.003.564.012.181.01.424-.069.664.508.247.59.843 2.057.917 2.207.073.15.122.327.024.521-.097.195-.146.316-.293.488-.146.173-.309.387-.44.52-.147.147-.3.308-.13.6.17.292.753 1.242 1.616 2.012 1.111.99 2.049 1.296 2.341 1.442.292.146.463.122.634-.074.17-.194.731-.852.926-1.144.195-.292.39-.244.657-.146.269.098 1.688.796 1.98 1.442.049.122.073.244.073.341 0 .268-.073.707-.32 1.397z"/>
-              </svg>
-              Pedir este diseño por WhatsApp
-            </a>
-
             <button class="btn-modal-share" id="modal-share-btn">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <circle cx="18" cy="5" r="3"></circle>
@@ -136,7 +129,7 @@ export class Lightbox {
                 <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
                 <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
               </svg>
-              Compartir diseño
+              Compartir este diseño
             </button>
           </div>
         </div>
@@ -151,7 +144,6 @@ export class Lightbox {
     this.viewport = this.overlay.querySelector('#modal-viewport');
     this.titleEl = this.overlay.querySelector('#modal-title');
     this.zoomDisplayEl = this.overlay.querySelector('#modal-zoom-display');
-    this.orderBtn = this.overlay.querySelector('#modal-whatsapp-order');
     this.prevBtn = this.overlay.querySelector('#modal-prev');
     this.nextBtn = this.overlay.querySelector('#modal-next');
     this.closeBtn = this.overlay.querySelector('#modal-close');
@@ -291,10 +283,6 @@ export class Lightbox {
     this.img.alt = item.title;
     this.titleEl.textContent = item.title;
 
-    // WhatsApp Link
-    const message = CONFIG.whatsappOrderMessage.replace('{nombre}', item.title);
-    const whatsappUrl = `https://wa.me/${CONFIG.whatsappNumber}?text=${encodeURIComponent(message)}`;
-    this.orderBtn.href = whatsappUrl;
 
     if (this.products.length <= 1) {
       this.prevBtn.style.display = 'none';

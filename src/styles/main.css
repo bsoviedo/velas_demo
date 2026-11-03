@@ -129,27 +129,20 @@ body {
   gap: 0.75rem;
 }
 
-.header-whatsapp-pill {
+.header-catalog-badge {
   display: inline-flex;
   align-items: center;
-  gap: 0.45rem;
-  background: var(--tag-green-bg);
-  border: 1px solid rgba(5, 150, 105, 0.2);
-  color: var(--tag-green-text);
-  padding: 0.45rem 0.95rem;
+  background: var(--bg-subtle);
+  border: 1px solid var(--border-light);
+  color: var(--text-secondary);
+  padding: 0.4rem 0.9rem;
   border-radius: var(--radius-full);
-  font-size: 0.85rem;
+  font-size: 0.82rem;
   font-weight: 700;
-  text-decoration: none;
-  transition: var(--transition);
+  letter-spacing: 0.02em;
 }
 
-.header-whatsapp-pill:hover {
-  background: var(--whatsapp-green);
-  color: #ffffff;
-  border-color: var(--whatsapp-green);
-  box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
-}
+
 
 /* =============================================================================
    CONTENEDOR PRINCIPAL
@@ -564,10 +557,11 @@ body {
 }
 
 .btn-shopify-primary:hover {
-  background: var(--whatsapp-green);
-  border-color: var(--whatsapp-green);
+  background: #1f2937;
+  border-color: #1f2937;
   color: #ffffff;
-  box-shadow: 0 4px 14px rgba(37, 211, 102, 0.4);
+  box-shadow: 0 4px 14px rgba(17, 24, 39, 0.2);
+  transform: translateY(-2px);
 }
 
 .btn-shopify-zoom {
@@ -863,35 +857,15 @@ body {
   padding-top: 1rem;
 }
 
-.btn-modal-whatsapp {
-  background: var(--bg-dark);
-  color: #ffffff;
-  padding: 0.95rem 1.25rem;
-  border-radius: var(--radius-sm);
-  font-size: 1rem;
-  font-weight: 700;
-  text-decoration: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.6rem;
-  transition: var(--transition);
-  box-shadow: 0 4px 12px rgba(17, 24, 39, 0.2);
-}
-
-.btn-modal-whatsapp:hover {
-  background: var(--whatsapp-green);
-  box-shadow: 0 6px 18px rgba(37, 211, 102, 0.4);
-}
-
 .btn-modal-share {
-  background: #ffffff;
-  border: 1px solid var(--border-medium);
-  color: var(--text-main);
-  padding: 0.75rem 1rem;
+  width: 100%;
+  background: var(--bg-dark);
+  border: 1px solid var(--bg-dark);
+  color: #ffffff;
+  padding: 0.85rem 1.25rem;
   border-radius: var(--radius-sm);
-  font-size: 0.9rem;
-  font-weight: 600;
+  font-size: 0.95rem;
+  font-weight: 700;
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -901,46 +875,9 @@ body {
 }
 
 .btn-modal-share:hover {
-  background: var(--bg-subtle);
-}
-
-/* =============================================================================
-   BOTÓN FLOTANTE DE WHATSAPP (SHOPIFY CHAT STYLE)
-   ============================================================================= */
-.shopify-chat-bubble {
-  position: fixed;
-  bottom: 2rem;
-  right: 2rem;
-  z-index: 800;
-  background: var(--whatsapp-green);
-  color: #ffffff;
-  border-radius: var(--radius-full);
-  padding: 0.85rem 1.35rem;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.6rem;
-  text-decoration: none;
-  font-weight: 700;
-  font-size: 0.95rem;
-  box-shadow: 0 8px 24px rgba(37, 211, 102, 0.35);
-  transition: var(--transition);
-}
-
-.shopify-chat-bubble:hover {
-  background: var(--whatsapp-hover);
-  transform: translateY(-3px) scale(1.03);
-  box-shadow: 0 12px 28px rgba(37, 211, 102, 0.5);
-}
-
-@media (max-width: 640px) {
-  .shopify-chat-bubble {
-    bottom: 1.25rem;
-    right: 1.25rem;
-    padding: 0.85rem;
-  }
-  .shopify-chat-bubble span {
-    display: none;
-  }
+  background: #1f2937;
+  border-color: #1f2937;
+  box-shadow: 0 4px 12px rgba(17, 24, 39, 0.2);
 }
 
 /* Toast */

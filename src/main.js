@@ -35,8 +35,6 @@ function applyConfig() {
   const footerBrand = document.getElementById('footer-brand-name');
   const collectionTitle = document.getElementById('collection-title');
   const collectionDesc = document.getElementById('collection-description');
-  const headerWhatsapp = document.getElementById('header-whatsapp-pill');
-  const floatingWhatsapp = document.getElementById('floating-whatsapp');
 
   if (announcementBar && CONFIG.topBannerText) {
     announcementBar.textContent = CONFIG.topBannerText;
@@ -52,17 +50,6 @@ function applyConfig() {
   }
   if (collectionDesc && CONFIG.catalogSubtitle) {
     collectionDesc.textContent = CONFIG.catalogSubtitle;
-  }
-
-  // Enlaces de WhatsApp
-  const generalMsg = encodeURIComponent(CONFIG.whatsappGeneralMessage);
-  const generalUrl = `https://wa.me/${CONFIG.whatsappNumber}?text=${generalMsg}`;
-
-  if (headerWhatsapp && CONFIG.whatsappNumber) {
-    headerWhatsapp.href = generalUrl;
-  }
-  if (floatingWhatsapp && CONFIG.whatsappNumber) {
-    floatingWhatsapp.href = generalUrl;
   }
 }
 
@@ -95,9 +82,6 @@ function renderStoreProducts(products, lightbox) {
     .join('');
 
   grid.innerHTML = products.map((item) => {
-    const orderMsg = encodeURIComponent(CONFIG.whatsappOrderMessage.replace('{nombre}', item.title));
-    const whatsappUrl = `https://wa.me/${CONFIG.whatsappNumber}?text=${orderMsg}`;
-
     return `
       <article class="product-card" data-id="${item.id}" data-index="${item.index}">
         <div class="product-image-box" data-action="quick-view" title="Clic para ver detalle y hacer zoom">
@@ -137,24 +121,16 @@ function renderStoreProducts(products, lightbox) {
           </div>
 
           <div class="product-actions">
-            <a 
-              href="${whatsappUrl}" 
-              target="_blank" 
-              rel="noopener noreferrer" 
+            <button 
               class="btn-shopify-primary"
-              title="Pedir por WhatsApp"
+              data-action="quick-view"
+              title="Ver detalle y ampliar con zoom"
             >
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M12.031 2C6.5 2 2 6.502 2 12.036c0 1.99.585 3.844 1.597 5.41L2 22l4.747-1.547a9.98 9.98 0 0 0 5.284 1.583h.004c5.53 0 10.03-4.502 10.03-10.036C22.065 6.502 17.562 2 12.031 2zm5.856 14.237c-.247.69-1.229 1.282-1.74 1.341-.475.056-1.077.08-3.488-.916-2.92-1.207-4.81-4.223-4.957-4.417-.145-.195-1.184-1.574-1.184-2.999s.754-2.124 1.022-2.414c.269-.29.587-.363.784-.363.196 0 .393.003.564.012.181.01.424-.069.664.508.247.59.843 2.057.917 2.207.073.15.122.327.024.521-.097.195-.146.316-.293.488-.146.173-.309.387-.44.52-.147.147-.3.308-.13.6.17.292.753 1.242 1.616 2.012 1.111.99 2.049 1.296 2.341 1.442.292.146.463.122.634-.074.17-.194.731-.852.926-1.144.195-.292.39-.244.657-.146.269.098 1.688.796 1.98 1.442.049.122.073.244.073.341 0 .268-.073.707-.32 1.397z"/>
-              </svg>
-              Pedir por WhatsApp
-            </a>
-
-            <button class="btn-shopify-zoom" data-action="quick-view" title="Ver con lupa y pantalla completa" aria-label="Zoom">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
                 <circle cx="11" cy="11" r="8"></circle>
                 <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
               </svg>
+              Ver Detalle & Zoom
             </button>
           </div>
         </div>

@@ -184,6 +184,7 @@ function renderStoreProducts(products, lightbox) {
       <article class="product-card ${!isAvailable ? 'card-soldout' : ''}" data-id="${item.id}" data-index="${item.index}">
         <div class="product-image-box" data-action="quick-view" title="Clic para ampliar con zoom">
           <span class="${badgeClass}">${badgeText}</span>
+          <span class="product-id-pill" title="Número de diseño / foto">#${item.numero}</span>
           
           <img 
             class="product-img" 
@@ -217,6 +218,11 @@ function renderStoreProducts(products, lightbox) {
 
             <div class="product-status-tag ${!isAvailable ? 'status-soldout' : ''}">
               ${statusText}
+            </div>
+
+            <div class="product-id-row">
+              <span class="product-id-label">ID Foto:</span>
+              <span class="product-id-badge">#${item.numero}</span>
             </div>
           </div>
 

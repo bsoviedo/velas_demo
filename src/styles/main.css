@@ -448,6 +448,22 @@ body {
   z-index: 2;
 }
 
+.product-id-pill {
+  position: absolute;
+  top: 0.85rem;
+  right: 0.85rem;
+  background: rgba(17, 24, 39, 0.9);
+  color: #ffffff;
+  font-size: 0.72rem;
+  font-weight: 800;
+  padding: 0.3rem 0.65rem;
+  border-radius: var(--radius-full);
+  letter-spacing: 0.04em;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  z-index: 2;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
 /* Botón flotante "Vista Rápida / Zoom" (Shopify Quick View) */
 .quick-view-overlay {
   position: absolute;
@@ -536,8 +552,35 @@ body {
   background: var(--tag-green-bg);
   padding: 0.22rem 0.65rem;
   border-radius: var(--radius-full);
-  margin-bottom: 0.85rem;
+  margin-bottom: 0.4rem;
   width: fit-content;
+}
+
+.product-id-row {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.8rem;
+  margin-bottom: 0.95rem;
+}
+
+.product-id-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #6b7280;
+  letter-spacing: 0.05em;
+}
+
+.product-id-badge {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-weight: 800;
+  font-size: 0.82rem;
+  color: #111827;
+  background: #f3f4f6;
+  border: 1px solid #e5e7eb;
+  padding: 0.12rem 0.55rem;
+  border-radius: 4px;
 }
 
 .status-dot {

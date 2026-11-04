@@ -91,5 +91,19 @@ export const CONFIG = {
       colorVelas: 'Velas Neón',
       disponible: true,
     },
+    {
+      archivo: 'caja-roja_velas-neon_virgen-maria.jpg',
+      titulo: 'Caja Roja Virgen María (Velas Neón)',
+      colorCaja: 'Caja Roja',
+      colorVelas: 'Velas Neón',
+      disponible: true,
+    },
+    {
+      archivo: 'caja-roja_velas-pastel_pesebre-navideno.jpg',
+      titulo: 'Caja Roja Pesebre (Velas Pastel)',
+      colorCaja: 'Caja Roja',
+      colorVelas: 'Velas Pastel',
+      disponible: true,
+    },
   ]
 };

@@ -30,15 +30,15 @@ export const CONFIG = {
       colorVelas: 'Velas Neón',
       disponible: true,
     },
-    {
+/*     {
       id: '02',
       numero: '02',
       archivo: 'caja-dorada_velas-neon_virgen-maria.jpg',
       titulo: 'Caja Dorada Virgen María',
       colorCaja: 'Caja Dorada',
       colorVelas: 'Velas Neón',
-      disponible: true,
-    },
+      disponible: false,
+    }, */
     {
       id: '03',
       numero: '03',

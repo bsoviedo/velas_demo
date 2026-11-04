@@ -15,9 +15,11 @@ export function getCandleProducts() {
   return lista.map((item, index) => {
     // new URL resuelve automáticamente la ruta correcta respecto al archivo catalog.js
     const resolvedUrl = new URL(`../velas/${item.archivo}`, import.meta.url).href;
+    const num = item.numero || item.id || String(index + 1).padStart(2, '0');
 
     return {
-      id: `vela-${index + 1}`,
+      id: `vela-${num}`,
+      numero: num,
       index,
       filename: item.archivo,
       title: item.titulo,

@@ -138,6 +138,7 @@ function updateCatalogView(lightbox) {
 
     // Buscador
     const matchSearch = !state.searchQuery || 
+      (item.numero && item.numero.includes(state.searchQuery)) ||
       item.title.toLowerCase().includes(state.searchQuery) ||
       item.colorCaja.toLowerCase().includes(state.searchQuery) ||
       item.colorVelas.toLowerCase().includes(state.searchQuery);
@@ -205,6 +206,8 @@ function renderStoreProducts(products, lightbox) {
         <div class="product-info">
           <div>
             <div class="product-meta-row">
+              <span class="meta-tag" style="font-weight: 700; color: #111827; background: #f3f4f6; border-radius: 4px; padding: 1px 6px;">#${item.numero}</span>
+              <span class="meta-separator">•</span>
               <span class="meta-tag">${item.colorCaja}</span>
               <span class="meta-separator">•</span>
               <span class="meta-tag">${item.colorVelas}</span>

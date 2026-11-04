@@ -248,7 +248,7 @@ export class Lightbox {
 
     this.img.src = item.url;
     this.img.alt = item.title;
-    this.titleEl.textContent = item.title;
+    this.titleEl.textContent = item.numero ? `#${item.numero} — ${item.title}` : item.title;
     if (this.counterEl) {
       this.counterEl.textContent = `${this.currentIndex + 1} / ${this.products.length}`;
     }
